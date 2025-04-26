@@ -1,0 +1,25 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+
+
+  .container-bg {
+    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+  }
+
+  .submit-btn{
+    background-color: #b7dee8;
+    width: 200px;
+  }
+
+  .registration-container {
+    max-width: 600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
