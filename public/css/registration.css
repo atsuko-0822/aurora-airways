@@ -4,13 +4,15 @@ h1, h2, h3, h4, h5, h6 {
 
   body {
     font-family: 'Poppins', sans-serif;
-  }
-
-
-
-  .container-bg {
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
   }
+
+
 
   .submit-btn{
     background-color: #b7dee8;
@@ -22,4 +24,55 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .login-btn{
+    background-color: white;
+    border: 2px solid #f7b5a1;
+    color: #f7b5a1;
+    width: 200px;
+  }
+
+  .login-container {
+    max-width: 400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fcfbf9;
+  }
+
+  a {
+    color: var(--bs-body-color);
+  }
+
+  input::placeholder {
+    text-align: center;
+  }
+
+  img{
+    width: 200px;
+  }
+
+  .facebook-btn {
+    background-color: white;
+    border: 1px solid var(--bs-body-color);
+    color: var(--bs-body-color);
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .google-btn {
+    background-color: white;
+    border: 1px solid var(--bs-body-color);
+    color: var(--bs-body-color);
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
 
 </head>
-<body class="bg-light g-gradient-custom container-bg" >
+<body class="bg-light g-gradient-custom" >
     @yield('content')
 </body>
 </html>
