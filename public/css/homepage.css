@@ -1,9 +1,13 @@
-@import 'tailwindcss';
+/* @import 'tailwindcss'; */
 
-:root {
+/* :root {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-}
+} */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
 
 .navbar-brand {
     margin-inline-start: 0 !important;
@@ -21,11 +25,11 @@
 }
 
 /* ▼ グラデーション背景を main 要素に適用 ▼ */
-main {
+ main {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
     min-height: 100vh;
-    padding-top: 50px; /* ← ナビバーの下に余白が必要であれば */
+    /* padding-top: 50px; ← ナビバーの下に余白が必要であれば */
 }
 
 /* その他の要素の背景は透明に */

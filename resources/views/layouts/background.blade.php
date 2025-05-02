@@ -8,6 +8,7 @@
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
 
+
 </head>
 <body class="bg-light g-gradient-custom" >
     @yield('content')

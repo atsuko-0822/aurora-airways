@@ -1,0 +1,32 @@
+.booking-form .form-row .form-group {
+    margin-right: 10px;
+}
+.search-btn{
+    background-color: #69c3a2;
+    width: 200px;
+  }
+
+  .show-btn{
+    background-color: #69c3a2;
+    width: 200px;
+  }
+
+  .icon-plane {
+    margin-right: 8px;
+  }
+
+  .sky-photo {
+    width: 100%;
+    height: 400px;
+  }
+  .booking-form {
+    position: relative;
+    top: -120px;
+    z-index: 2;
+  }
+
+  .flight-results {
+    position: relative;
+    top: -100px;
+    z-index: 1;
+}
