@@ -1,0 +1,87 @@
+/* @import 'tailwindcss'; */
+
+/* :root {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+} */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
+
+.navbar-brand {
+    margin-inline-start: 0 !important;
+    padding-inline-start: 0 !important;
+}
+
+.logo-img {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+/* ▼ グラデーション背景を main 要素に適用 ▼ */
+ main {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    min-height: 100vh;
+    /* padding-top: 50px; ← ナビバーの下に余白が必要であれば */
+}
+
+/* その他の要素の背景は透明に */
+section {
+    background: transparent;
+}
+
+.container {
+    background: transparent;
+}
+
+.card {
+    background: transparent;
+}
+
+.card-body {
+    background: transparent;
+}
+
+footer {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+}
+
+.subfooter {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex; /* Flexbox を有効にする */
+    justify-content: flex-start !important; /* 左寄せにする */
+}
+
+.subfooter p {
+    text-align: left !important;
+    margin-right: 1em; /* 必要に応じて右側の余白を追加 */
+}
+
+.subfooter p:last-child {
+    margin-right: 0 !important; /* 最後の要素の右余白をなくす */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 30px; /* 左側のマージン */
+    margin-right: 30px; /* 右側のマージン */
+}
+.d-flex.align-items-center > * { /* 直接の子要素すべてに適用 */
+    margin-left: 15px; /* 左側のマージン */
+    margin-right: 15px; /* 右側のマージン */
+}
+
+.d-flex.align-items-center > button { /* ボタンだけ少し調整 */
+    margin-left: 15px;
+    margin-right: 10px;
+}

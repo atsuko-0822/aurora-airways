@@ -10,7 +10,7 @@
 
     <div class="mx-auto p-4 rounded-4 shadow login-container">
         <div class="text-center mb-2">
-            <img src="{{ asset('/images/Image 2 3.jpg') }}" class="d-block mx-auto" alt="Logo">
+            <img src="{{ asset('/image/Image 2 3.jpg') }}" class="d-block mx-auto" alt="Logo">
           </div>
         <h3 class="mb-3 display-6 fw-bold text-center">Welcome!</h3>
       <form>

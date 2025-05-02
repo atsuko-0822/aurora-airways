@@ -1,14 +1,19 @@
-@extends('layouts.background')
+@extends('layouts.template')
 
 @section('title', 'Flight Search')
 
 @section('content')
 
-<div class="container mt-5">
+
+    <section class="hero position-relative text-center text-white">
+        <img src="/image/jake-weirick-Q_RBVFFXR_g-unsplash.jpg" class="img-fluid w-100 sky-photo"  alt="Night Sky">
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <h1 class="text-center fw-bold text-white mb-5">Where do you want to go ?</h1>
+        </div>
+    </section>
     <div class="booking-form mx-auto">
-        <h1 class="text-center fw-bold text-white mb-5">Where do you want to go ?</h1>
         <form>
-            <div class="bg-white rounded shadow p-4">
+            <div class="bg-white rounded shadow p-4 m-5">
             <div class="form-row d-flex justify-content-center">
                 <div class="form-group col-md-2">
                     <label for="from">From</label>
@@ -47,7 +52,7 @@
         </form>
     </div>
 
-    <div class="bg-white rounded shadow p-4 mt-4">
+    <div class="bg-white rounded shadow p-4 mx-5 mt-5 flight-results">
         <div class="d-flex align-items-center mb-3">
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
             <h2 class="fw-bold mb-0">Departing Flights</h2>
@@ -67,7 +72,7 @@
         </div>
         <button type="submit" class="btn d-block mx-auto px-4 py-2 rounded-pill fw-bold text-white show-btn">Show more</button>
     </div>
-</div>
+
 
 
   @endsection

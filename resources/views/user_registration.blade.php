@@ -4,11 +4,14 @@
 
 @section('content')
 
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center position-relative">
 
-<h1 class="mt-5 ps-4 display-3 fw-bold">Join Aurora Club!</h1>
+    <div class="position-absolute top-0 start-0 ms-4 mt-3">
+      <h1 class="display-5 fw-bold mt-3">Join Aurora Club!</h1>
+    </div>
 
-  <div class="container mt-3 mb-3">
-    <div class="mx-auto p-4 bg-white rounded-4 shadow registration-container">
+    <!-- 中央にフォーム配置 -->
+    <div class="p-4 bg-white rounded-4 shadow registration-container m-5">
       <form>
         <div class="mb-3">
           <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -63,4 +66,6 @@
   </div>
 
   @endsection
+
+
 
