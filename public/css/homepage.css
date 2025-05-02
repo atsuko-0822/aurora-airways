@@ -18,6 +18,7 @@
 
 .nav-link {
     font-weight: 500;
+    color: #0F384A !important; /* ナビゲーションリンクの文字色 */
 }
 
 /* ▼ グラデーション背景を main 要素に適用 ▼ */
@@ -26,45 +27,75 @@ main {
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
     min-height: 100vh;
     padding-top: 50px; /* ← ナビバーの下に余白が必要であれば */
+    color: #0F384A !important; /* main 要素内のテキストのデフォルトカラー */
 }
 
 /* その他の要素の背景は透明に */
 section {
     background: transparent;
+    color: #0F384A !important; /* section 内のテキストのデフォルトカラー */
 }
 
 .container {
     background: transparent;
+    color: #0F384A !important; /* container 内のテキストのデフォルトカラー */
 }
 
 .card {
     background: transparent;
+    color: #0F384A !important; /* card 内のテキストのデフォルトカラー */
 }
 
 .card-body {
     background: transparent;
+    color: #0F384A !important; /* card-body 内のテキストのデフォルトカラー */
+}
+
+.hero img {
+    max-block-size: 600px;
+    object-fit: cover;
+}
+
+.hero .position-absolute {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.promotions .card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.featured-destinations .card-img-top {
+    max-block-size: 200px;
+    object-fit: cover;
 }
 
 footer {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    color: #0F384A !important; /* footer 全体の文字色 */
 }
 
-.subfooter {
+footer .subfooter {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
     padding-left: 0 !important;
     padding-right: 0 !important;
     display: flex; /* Flexbox を有効にする */
     justify-content: flex-start !important; /* 左寄せにする */
+    margin-left: -12px !important; /* 親要素の左パディングを打ち消す */
+    margin-right: -12px !important; /* 親要素の右パディングを打ち消す */
 }
 
-.subfooter p {
+footer .subfooter p {
     text-align: left !important;
     margin-right: 1em; /* 必要に応じて右側の余白を追加 */
+    color: #0F384A !important; /* subfooter 内 p 要素の文字色 */
 }
 
-.subfooter p:last-child {
+footer .subfooter p:last-child {
     margin-right: 0 !important; /* 最後の要素の右余白をなくす */
 }
 
@@ -72,12 +103,114 @@ footer {
     margin-left: 30px; /* 左側のマージン */
     margin-right: 30px; /* 右側のマージン */
 }
-.d-flex.align-items-center > * { /* 直接の子要素すべてに適用 */
-    margin-left: 15px; /* 左側のマージン */
-    margin-right: 15px; /* 右側のマージン */
+
+.d-flex.align-items-center { /* ナビゲーション右側のアイコンとボタンのコンテナ */
+    color: #3E8BAC !important;
 }
 
-.d-flex.align-items-center > button { /* ボタンだけ少し調整 */
-    margin-left: 15px;
-    margin-right: 10px;
+.d-flex.align-items-center > i { /* ナビゲーション右側のアイコン */
+    font-size: 1.7em !important;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
 }
+
+.d-flex.align-items-center > button.btn-outline-primary { /* ナビゲーション右側のログインボタン */
+    color: #3E8BAC !important;
+    border-color: #3E8BAC !important;
+    font-size: 1.1em !important;
+    padding: 0.3em 0.7em !important;
+    margin-left: 15px !important;
+    margin-right: 10px !important;
+}
+
+footer .list-unstyled a {
+    color: #0F384A !important;
+    text-decoration: none !important;
+}
+
+footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 { /* フッターのソーシャルアイコンコンテナ */
+    max-width: 150px !important;
+}
+
+footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの各ソーシャルアイコン */
+    color: #0F384A !important;
+    font-size: 2.0em !important;
+    width: 25% !important;
+    display: inline-block !important;
+    text-align: center !important;
+}
+
+
+.featured-destinations .row {
+    display: flex;
+    flex-wrap: wrap; /* レスポンシブ対応のため折り返しを許可 */
+    margin-left: -15px; /* Bootstrap の gutter を打ち消す */
+    margin-right: -15px; /* Bootstrap の gutter を打ち消す */
+}
+
+.featured-destinations .col {
+    padding-left: 15px; /* Bootstrap の gutter を設定 */
+    padding-right: 15px; /* Bootstrap の gutter を設定 */
+    width: 100%; /* デフォルトでは 100% 幅 */
+}
+
+/* ... 他の CSS ... */
+
+.featured-destinations .row {
+    display: flex;
+    flex-wrap: wrap; /* レスポンシブ対応のため折り返しを許可 */
+    margin-left: -15px; /* Bootstrap の gutter を打ち消す */
+    margin-right: -15px; /* Bootstrap の gutter を打ち消す */
+}
+
+.featured-destinations .col {
+    padding-left: 15px; /* Bootstrap の gutter を設定 */
+    padding-right: 15px; /* Bootstrap の gutter を設定 */
+    flex: 1 0 0; /* コンテンツに基づいて均等に幅を分配 */
+    max-width: 25%; /* 最大幅を 25% に設定 (4列表示を基本とする) */
+}
+
+/* 中サイズ以下の画面 (md) */
+@media (max-width: 767px) {
+    .featured-destinations .col {
+        max-width: 50%; /* 中サイズ以下で 2列表示 */
+    }
+}
+
+/* 小サイズ以下の画面 (sm) */
+@media (max-width: 575px) {
+    .featured-destinations .col {
+        max-width: 100%; /* 小サイズ以下で 1列表示 */
+    }
+}
+
+.featured-destinations .card {
+    display: flex;
+    flex-direction: column; /* カード内の要素を縦に並べる */
+    height: 100%; /* 親要素の高さいっぱいにする */
+    width: 100%; /* カード自身の幅を親要素いっぱいに */
+}
+
+.featured-destinations .card-body {
+    flex-grow: 1; /* card-body が高さを埋めるように設定 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* card-body 内のコンテンツを垂直方向中央に配置（必要に応じて） */
+    align-items: center; /* card-body 内のコンテンツを水平方向中央に配置（必要に応じて） */
+}
+
+.featured-destinations .card-img-top {
+    max-block-size: 200px;
+    object-fit: cover;
+    width: 100%; /* 画像がカードの幅いっぱいに広がるように */
+}
+
+/* ... 他の CSS ... */
+
+.hero .position-absolute {
+    top: 10%; /* top の値を 50% から 40% に変更 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ... 他の CSS ... */
