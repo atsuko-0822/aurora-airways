@@ -30,6 +30,10 @@ Route::get('/flight_departure', function () {
     return view('flight_departure');
 });
 
+Route::get('/flight_return', function () {
+    return view('flight_return');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
