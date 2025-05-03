@@ -18,11 +18,17 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
     display: block;
+    max-height: 100%;
+    height: 50px;
 }
 
 .nav-link {
     font-weight: 500;
     color: #0F384A !important; /* ナビゲーションリンクの文字色 */
+}
+
+.header-nav{
+    height:50px;
 }
 
 /* ▼ グラデーション背景を main 要素に適用 ▼ */
@@ -108,7 +114,7 @@ footer .subfooter p:last-child {
     margin-right: 30px; /* 右側のマージン */
 }
 
-.d-flex.align-items-center { /* ナビゲーション右側のアイコンとボタンのコンテナ */
+.nav-icons { /* ナビゲーション右側のアイコンとボタンのコンテナ */
     color: #3E8BAC !important;
 }
 

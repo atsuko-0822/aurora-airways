@@ -20,15 +20,15 @@
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flight_search.css') }}">
     <link rel="stylesheet" href="{{ asset('css/template.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/departure.css') }}">
 
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg shadow-sm header-nav" style="height:50px;">
+        <nav class="navbar navbar-expand-lg shadow-sm header-nav">
             <div class="container-fluid d-flex align-items-center justify-content-between px-0">
-                <a class="navbar-brand" href="/"> <img src="/image/Image 2 3.jpg" alt="Aurora Airways Logo" class="logo-img" style="max-height: 100%; height: 50px;">
+                <a class="navbar-brand" href="/"> <img src="/image/Image 2 3.jpg" alt="Aurora Airways Logo" class="logo-img">
                 </a>
 
                 <ul class="navbar-nav mx-auto d-flex flex-row">
@@ -46,7 +46,7 @@
                     </li>
                 </ul>
 
-                <div class="d-flex align-items-center ">
+                <div class="d-flex align-items-center nav-icons">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-globe"></i>
                     <i class="fa-solid fa-bell"></i>

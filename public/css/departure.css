@@ -1,0 +1,14 @@
+.flight-departure {
+    width: 80%;
+    height: 80% !important;
+    margin: 7%;
+}
+
+.flight-item {
+    font-size: large;
+}
+
+.flight-link {
+    text-decoration: none;
+    color: #0F384A;
+}
