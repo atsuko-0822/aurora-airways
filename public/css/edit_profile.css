@@ -1,0 +1,11 @@
+.edit-container {
+    max-width: 600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .save-btn{
+    background-color: #f7b5a1;
+    width: 200px;
+  }
