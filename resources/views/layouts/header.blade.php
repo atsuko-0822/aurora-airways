@@ -29,7 +29,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg bg-white shadow-sm" style="height:50px;">
             <div class="container-fluid d-flex align-items-center justify-content-between px-0">
-                <a class="navbar-brand" href="/"> <img src="/image/logo.jpeg" alt="Aurora Airways Logo" class="logo-img" style="max-height: 100%; height: 50px;">
+                <a class="navbar-brand" href="/"> <img src="/image/logo.jpeg" alt="Aurora Airways Logo" class="logo-img">
                 </a>
 
                 <div class="d-flex flex-grow-1 justify-content-between align-items-center">
