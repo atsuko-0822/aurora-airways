@@ -1,0 +1,28 @@
+.user-header {
+    font-size: 20px;
+}
+
+.eticket-btn{
+   color: #3e8bac;
+   border: 2px solid #3e8bac;
+    width: 150px;
+  }
+
+  .flight-info-oval-reservation {
+    background-color: #e0f7fa;
+    border-radius: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .receipt-btn{
+    background-color: #69c3a2;
+    color: white;
+  }
+
+  .cancel-btn{
+    color: #f7b5a1;
+   border: 2px solid #f7b5a1;
+  }
+
+

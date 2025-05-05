@@ -34,6 +34,14 @@ Route::get('/flight_return', function () {
     return view('flight_return');
 });
 
+Route::get('/user_dashboard', function () {
+    return view('user_dashboard');
+});
+
+Route::get('/edit_profile', function () {
+    return view('edit_profile');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
