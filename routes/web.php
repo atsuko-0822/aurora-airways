@@ -50,6 +50,10 @@ Route::get('/contact_us', function () {
     return view('contact_us');
 });
 
+Route::get('/FAQ', function () {
+    return view('FAQ');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
