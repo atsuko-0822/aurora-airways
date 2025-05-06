@@ -46,6 +46,10 @@ Route::get('/cancel_change', function () {
     return view('cancel_change');
 });
 
+Route::get('/contact_us', function () {
+    return view('contact_us');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
