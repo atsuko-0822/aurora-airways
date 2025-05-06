@@ -1,0 +1,18 @@
+.cancel-container {
+    width: 90%;
+    margin-top: 80px;
+  }
+
+  .cancel-container .flight-info-oval-reservation{
+    width: 400px;
+  }
+
+  .flight-cancel-btn {
+    background-color: #f2d59c;
+    width: 200px;
+  }
+
+  .flight-change-btn {
+    background-color: #f2d59c;
+    width: 300px;
+  }

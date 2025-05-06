@@ -42,6 +42,10 @@ Route::get('/edit_profile', function () {
     return view('edit_profile');
 });
 
+Route::get('/cancel_change', function () {
+    return view('cancel_change');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
