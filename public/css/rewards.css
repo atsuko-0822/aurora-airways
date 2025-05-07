@@ -1,0 +1,21 @@
+.points {
+    margin-right: 100px;
+    font-size: large;
+}
+
+.name{
+    margin-left: 200px;
+}
+
+.rewards-title {
+    margin-bottom: 30px;
+}
+
+.rewards-card {
+    padding-bottom: 50px;
+}
+
+.rewards-btn {
+    background-color: #f2d59c;
+    width: 150px;
+  }

@@ -54,6 +54,10 @@ Route::get('/FAQ', function () {
     return view('FAQ');
 });
 
+Route::get('/rewards', function () {
+    return view('rewards');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
