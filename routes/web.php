@@ -58,6 +58,10 @@ Route::get('/rewards', function () {
     return view('rewards');
 });
 
+Route::get('/flight_comparison', function () {
+    return view('flight_comparison');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
