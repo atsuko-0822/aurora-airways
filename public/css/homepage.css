@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
  main {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
-    min-height: 100vh;
+    /* min-height: 100vh; */
     /*padding-top: 50px; /* ← ナビバーの下に余白が必要であれば */
     color: #0F384A !important; /* main 要素内のテキストのデフォルトカラー */
 }

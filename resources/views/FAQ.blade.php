@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container-fluid d-flex align-items-center justify-content-center position-relative">
+<div class="container-fluid d-flex align-items-center justify-content-center position-relative min-vh-100">
     <div class="faq-container">
         <img src="/image/image 16.png" alt="airport" class="airport-image mb-4">
         <h1 class="faq-title">Common Questions</h1>
