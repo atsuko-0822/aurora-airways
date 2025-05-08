@@ -62,6 +62,10 @@ Route::get('/flight_comparison', function () {
     return view('flight_comparison');
 });
 
+Route::get('/notifications', function () {
+    return view('notifications');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
