@@ -13,13 +13,15 @@
             <img src="{{ asset('/image/Image 2 3.jpg') }}" class="d-block mx-auto" alt="Logo">
           </div>
         <h3 class="mb-3 display-6 fw-bold text-center">Welcome!</h3>
-      <form>
+        <form method="POST" action="{{ route('user.login') }}">
+        @csrf
+
         <div class="mb-3">
-          <input type="email" class="form-control" id="email" required placeholder="Email adress" />
+          <input type="email" class="form-control" id="email" name="email" required placeholder="Email adress" />
         </div>
 
         <div class="mb-3">
-          <input type="password" class="form-control" id="password" required placeholder="Password"/>
+          <input type="password" class="form-control" id="password" name="password" required placeholder="Password"/>
         </div>
 
         <button type="submit" class="btn d-block mx-auto px-4 py-2 rounded-pill fw-bold login-btn">Login</button>

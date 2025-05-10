@@ -25,4 +25,8 @@
    border: 2px solid #f7b5a1;
   }
 
-
+  .info-text {
+    text-align: right;
+    padding-right: 20px;
+   font-size: 16px;
+  }

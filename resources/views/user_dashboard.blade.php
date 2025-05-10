@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-5">
             <div class="rounded p-3 mb-3 d-flex align-items-center">
-                <h2 class="fw-bold mt-3 me-4">Hello, Name !</h2>
+                <h2 class="fw-bold mt-3 me-4">Hello, {{ Auth::user()->full_name }}!</h2>
                  <p class="mt-4 user-header">0000-0000</p>
             </div>
             <div class="bg-white rounded shadow p-4 pb-5 mb-4 personal-info-container">
@@ -18,44 +18,40 @@
                 </div>
                         <div class="mb-3">
                             <label for="full-name" class="form-label">Full Name</label>
-                            <div class="form-text fw-bold"></div>
+                            <div class="form-text fw-bold info-text">{{ Auth::user()->full_name }}</div>
                             <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->address }}</div>
                         <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->phone_number }}</div>
                             <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->email }}</div>
                             <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="passport" class="form-label">Passport number</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->passport_number }}</div>
                         <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="emergency-name" class="form-label">Emergency contact(name)</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->emergency_contact_name }}</div>
                             <div class="border-bottom pb-2"></div>
                     </div>
                     <div class="mb-3">
                         <label for="emergency-phone" class="form-label">Emergency contact(phone)</label>
-                        <div class="form-text fw-bold"></div>
+                        <div class="form-text fw-bold info-text">{{ Auth::user()->emergency_contact_phone }}</div>
                             <div class="border-bottom pb-2"></div>
                     </div>
-                    <div class="mb-3">
-                        <label for="credit-card" class="form-label">credit card</label>
-                        <div class="form-text fw-bold"></div>
-                        <div class="border-bottom pb-2"></div>
-                    </div>
+
                     <div class="text-center">
                         <a href="" class="text-decoration-none text-secondary">change your information ?</a>
                     </div>

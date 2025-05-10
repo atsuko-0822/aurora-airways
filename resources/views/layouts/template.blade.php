@@ -55,12 +55,31 @@
                     </li>
                 </ul>
 
-                <div class="d-flex align-items-center nav-icons">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <i class="fa-solid fa-globe"></i>
-                    <i class="fa-solid fa-bell"></i>
+                <div class="d-flex align-items-center nav-icons ms-auto">
+                    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                    <i class="fa-solid fa-globe ms-3 fa-lg"></i>
+                    <i class="fa-solid fa-bell ms-3 fa-lg"></i>
 
-                    <button class="btn btn-outline-primary">Login</button>
+                    @guest
+                        <a href="{{ route('user.login') }}" class="btn  ms-2">Login</a>
+                    @else
+                        <div class="dropdown ms-2">
+                            <button class="btn  dropdown-toggle user_dropdown" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->full_name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                               <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -70,7 +89,7 @@
 
 
         <footer class="py-4">
-            <div class="container-fluid">
+            <div class="container-fluid footer-container">
                 <div class="row row-cols-1 row-cols-md-4">
                     <div class="col">
                         <h4 class="pb-2 mb-3">Customer Service</h4>
@@ -108,12 +127,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="subfooter d-flex justify-content-between pt-3 mt-3">
                     <p class="small">Aurora Airways Canada Ltd.</p>
                     <p class="small">All rights reserved.</p>
                     <p class="small">&copy; 2025 Aurora Airways group</p>
                 </div>
-            </div>
+
         </footer>
 
     </div>
