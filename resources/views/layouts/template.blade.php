@@ -37,12 +37,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg shadow-sm header-nav">
             <div class="container-fluid d-flex align-items-center justify-content-between px-0">
-                <a class="navbar-brand" href="/"> <img src="/image/Image 2 3.jpg" alt="Aurora Airways Logo" class="logo-img">
+                <a class="navbar-brand" href="{{ route('home') }}"> <img src="/image/Image 2 3.jpg" alt="Aurora Airways Logo" class="logo-img">
                 </a>
 
                 <ul class="navbar-nav mx-auto d-flex flex-row">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">My bookings</a>
@@ -51,7 +51,7 @@
                         <a class="nav-link" href="#">Check in</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Flights</a>
+                        <a class="nav-link" href="{{ route('flight_search') }}">Flights</a>
                     </li>
                 </ul>
 
@@ -61,7 +61,7 @@
                     <i class="fa-solid fa-bell ms-3 fa-lg"></i>
 
                     @guest
-                        <a href="{{ route('user.login') }}" class="btn  ms-2">Login</a>
+                        <a href="{{ route('login') }}" class="btn  ms-2">Login</a>
                     @else
                         <div class="dropdown ms-2">
                             <button class="btn  dropdown-toggle user_dropdown" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,8 +94,8 @@
                     <div class="col">
                         <h4 class="pb-2 mb-3">Customer Service</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="{{ route('contact_us') }}">Contact Us</a></li>
+                            <li><a href="{{ route('FAQ') }}">FAQ</a></li>
                         </ul>
                     </div>
                     <div class="col">

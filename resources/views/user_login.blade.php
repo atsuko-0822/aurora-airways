@@ -13,7 +13,7 @@
             <img src="{{ asset('/image/Image 2 3.jpg') }}" class="d-block mx-auto" alt="Logo">
           </div>
         <h3 class="mb-3 display-6 fw-bold text-center">Welcome!</h3>
-        <form method="POST" action="{{ route('user.login') }}">
+        <form method="POST" action="{{ route('authenticate') }}">
         @csrf
 
         <div class="mb-3">

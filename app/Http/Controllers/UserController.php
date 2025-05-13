@@ -8,10 +8,36 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function login(Request $request)
+    public function login()
     {
         // フォームのバリデーション
+        // print("test");
+        // echo("test");
+        // $credentials = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required',
+        // ]);
+
+        // // 認証処理
+        // if (Auth::attempt($credentials)) {
+        //     // 認証成功後、user_dashboard にリダイレクト
+        //     return redirect()->route('user.dashboard');
+        // }
+
+        // 認証失敗時にエラーメッセージを表示
+        // return back()->withErrors([
+        //     'email' => 'The provided credentials do not match our records.',
+        // ]);
+        return view('user_login');
+    }
+
+public function authenticate(Request $request)
+
+
+     {
+        //フォームのバリデーション
         print("test");
+        echo("test");
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -23,11 +49,11 @@ class UserController extends Controller
             return redirect()->route('user.dashboard');
         }
 
-        // 認証失敗時にエラーメッセージを表示
+       // 認証失敗時にエラーメッセージを表示
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
-    }
+     }
 
     public function dashboard()
 {
