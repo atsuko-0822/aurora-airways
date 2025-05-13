@@ -10,8 +10,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 .navbar-brand {
-    margin-inline-start: 0 !important;
-    padding-inline-start: 0 !important;
+    /* margin-inline-start: 0 !important;
+    padding-inline-start: 0 !important; */
+    margin-left: 20px;
 }
 
 .logo-img {
@@ -103,6 +104,7 @@ footer .subfooter p {
     text-align: left !important;
     margin-right: 1em; /* 必要に応じて右側の余白を追加 */
     color: #0F384A !important; /* subfooter 内 p 要素の文字色 */
+    padding-left: 100px !important; /* 左側のパディング */
 }
 
 footer .subfooter p:last-child {
@@ -224,3 +226,6 @@ footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの�
 }
 
 /* ... 他の CSS ... */
+.footer-container{
+   margin-left: 80px;
+}

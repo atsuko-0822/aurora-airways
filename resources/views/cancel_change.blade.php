@@ -8,7 +8,7 @@
 
     <div class="position-absolute top-0 start-0 ms-4 mt-4">
         <div class="rounded p-3 mb-3 mt-3 d-flex align-items-center">
-            <h2 class="fw-bold mt-3 me-4">Hello, Name !</h2>
+            <h2 class="fw-bold mt-3 me-4">Hello,{{ Auth::user()->full_name }}!</h2>
              <p class="mt-4 user-header">0000-0000</p>
         </div>
     </div>
