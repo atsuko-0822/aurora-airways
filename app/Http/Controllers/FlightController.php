@@ -63,6 +63,6 @@ class FlightController extends Controller
 
         $flights = $query->get();
 
-        return view('flight_search_all', compact('flights'));
+        return view('flight_departure', compact('flights'));
     }
 }
