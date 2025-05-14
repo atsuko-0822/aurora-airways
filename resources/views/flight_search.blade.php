@@ -18,17 +18,17 @@
             <div class="form-group col-md-2">
                 <label for="from">From</label>
                 <select class="form-control" name="from" id="from">
-                    <option value="Tokyo">Tokyo</option>
-                    <option value="Osaka">Osaka</option>
-                    <option value="Fukuoka">Fukuoka</option>
+                    <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
+                    <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
+                    <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
                 </select>
             </div>
             <div class="form-group col-md-2 me-2">
                 <label for="to">To</label>
                 <select class="form-control" name="to" id="to">
-                    <option value="Vancouver">Vancouver</option>
-                    <option value="Toronto">Toronto</option>
-                    <option value="Montreal">Montreal</option>
+                    <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
+                    <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
+                    <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
                 </select>
             </div>
             <div class="form-group col-md-2 mr-2">
@@ -68,8 +68,8 @@
         </div>
     @endforeach
 
-    <a href="{{ route('flight.all', request()->all()) }}">
-        <button class="btn d-block mx-auto px-4 py-2 rounded-pill fw-bold text-white show-btn">Show more</button>
+    <a href="{{ route('flight.all', request()->all()) }}" class="text-decoration-none">
+        <button type="submit" class="btn d-block mx-auto px-4 py-2 mt-3 rounded-pill fw-bold text-white search-btn mt-2">Show more</button>
     </a>
 </div>
 @else
