@@ -18,8 +18,9 @@ return new class extends Migration
             $table->date('departure_date'); // 出発日
             $table->dateTime('departure_time'); // 出発時刻
             $table->dateTime('arrival_time');   // 到着時刻
-            $table->enum('trip_type', ['one_way', 'round_trip'])->default('one_way');
+            // $table->enum('trip_type', ['one_way', 'round_trip'])->default('one_way');
             $table->decimal('price', 8, 2);
+            $table->enum('trip_category', ['1', '0']);
             $table->timestamps();
         });
     }

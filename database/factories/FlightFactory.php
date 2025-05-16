@@ -13,13 +13,14 @@ class FlightFactory extends Factory
     public function definition(): array
     {
         return [
-            'from' => $this->faker->randomElement(['Tokyo', 'Osaka', 'Fukuoka']),
-            'to' => $this->faker->randomElement(['Vancouver', 'Toronto', 'Montreal']),
+            'from' => $this->faker->randomElement(['Vancouver', 'Toronto', 'Montreal','Tokyo', 'Osaka', 'Fukuoka']),
+            'to' => $this->faker->randomElement(['Vancouver', 'Toronto', 'Montreal','Tokyo', 'Osaka', 'Fukuoka']),
             'departure_date' => $this->faker->dateTimeBetween('now', '+2 weeks')->format('Y-m-d'),
             'departure_time' => $this->faker->dateTimeBetween('now', '+1 week'),
             'arrival_time' => $this->faker->dateTimeBetween('+1 week', '+2 weeks'),
-            'trip_type' => $this->faker->randomElement(['one_way', 'round_trip']),
+            // 'trip_type' => $this->faker->randomElement(['one_way', 'round_trip']),
             'price' => $this->faker->randomFloat(2, 300, 1500),
+            'trip_category' => $this->faker->randomElement(['1', '0']),
         ];
     }
 }
