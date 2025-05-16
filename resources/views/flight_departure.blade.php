@@ -10,63 +10,26 @@
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
             <h1 class="fw-bold mb-0">Departing Flights</h1>
         </div>
-    </a>
 
-    <a href="#" class="flight-link">
-        <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-            <div class="me-3">3:40 PM - 8:15 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$975</div>
-        </div>
-    </a>
 
-    <a href="#" class="flight-link">
-     <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-            <div class="me-3">6:55 PM - 11:30 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$1100</div>
+        @if(count($flights) > 0)
+        @foreach ($flights as $flight)
+            <a href="{{ route('return.flights', $flight->id) }}" class="flight-link">
+                <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
+                    <div class="me-3">{{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}</div>
+                    <div class="me-3">{{ $flight->from }} - {{ $flight->to }}</div>
+                    <div class="me-3">{{ $flight->duration ?? 'N/A' }}</div> {{-- durationカラムがあれば --}}
+                    <div>${{ number_format($flight->price) }}</div>
+                </div>
+            </a>
+        @endforeach
+    @else
+        <div class="text-center mt-3">
+            <p>No flights found.</p>
         </div>
-    </a>
-        <a href="#" class="flight-link">
-        <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-            <div class="me-3">1:10 PM - 5:45 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$1150</div>
-        </div>
-    </a>
-        <a href="#" class="flight-link">
-        <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-            <div class="me-3">3:40 PM - 8:15 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$1200</div>
-        </div>
-    </a>
-        <a href="#" class="flight-link">
-        <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-            <div class="me-3">6:55 PM - 11:30 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$1100</div>
-        </div>
-    </a>
-
-    <a href="#" class="flight-link">
-        <div class="flight-item d-flex justify-content-between align-items-center py-4">
-            <div class="me-3">6:55 PM - 11:30 AM</div>
-            <div class="me-3">NRT - YVR</div>
-            <div class="me-3">8hour35min</div>
-            <div>$1100</div>
-        </div>
-    </a>
-    </div>
+    @endif
+</div>
 </div>
 
-
-
-
-  @endsection
+@endsection
 

@@ -100,4 +100,4 @@ Route::get('/user_dashboard', [UserController::class, 'dashboard'])->middleware(
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/flight_results', [FlightController::class, 'search'])->name('flight.search');
 Route::get('/flight_all', [FlightController::class, 'showAll'])->name('flight.all');
-
+Route::get('/flight_return/{flight}', [FlightController::class, 'showReturnFlights'])->name('return.flights');

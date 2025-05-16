@@ -21,6 +21,7 @@
                     <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
                     <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
                     <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
+                    <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
                 </select>
             </div>
             <div class="form-group col-md-2 me-2">
@@ -29,6 +30,7 @@
                     <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
                     <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
                     <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
+                    <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
                 </select>
             </div>
             <div class="form-group col-md-2 mr-2">
@@ -41,9 +43,9 @@
             </div>
             <div class="form-group col-md-2 mr-2">
                 <label for="trip_type">Trip Type</label>
-                <select class="form-control" name="trip_type" id="trip_type">
-                    <option value="round_trip" {{ request('trip_type') == 'round_trip' ? 'selected' : '' }}>Round trip</option>
-                    <option value="one_way" {{ request('trip_type') == 'one_way' ? 'selected' : '' }}>One way</option>
+                <select class="form-control" name="trip_category" id="trip_category">
+                    <option value="1" {{ request('trip_category') == '1' ? 'selected' : '' }}>Round trip</option>
+                    <option value="0" {{ request('trip_category') == '0' ? 'selected' : '' }}>One way</option>
                 </select>
             </div>
         </div>
