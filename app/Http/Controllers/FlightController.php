@@ -86,18 +86,18 @@ class FlightController extends Controller
         return view('flight_departure', compact('flights'));
     }
 
-//     public function showReturnFlights(Flight $flight)
-// {
+    public function showReturnFlights(Flight $flight)
+{
     // 復路便の条件：出発便と逆のfrom/toで、日付が後
-//     $returnFlights = Flight::where('from', $flight->to)
-//         ->where('to', $flight->from)
-//         ->whereDate('departure_date', '>', $flight->departure_date)
-//         ->orderBy('departure_date')
-//         ->get();
+        $returnFlights = Flight::where('from', $flight->to)
+        ->where('to', $flight->from)
+        ->whereDate('departure_date', '>', $flight->departure_date)
+        ->orderBy('departure_date')
+        ->get();
 
-//     return view('flight_return', [
-//         'departingFlight' => $flight,
-//         'returnFlights' => $returnFlights,
-//     ]);
-// }
+    return view('flight_return', [
+        'departingFlight' => $flight,
+        'returnFlights' => $returnFlights,
+    ]);
+}
  }
