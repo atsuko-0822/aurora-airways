@@ -5,6 +5,7 @@ use App\Http\Controllers\UserRegistrationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FlightController;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,14 +91,21 @@ Route::get('/notifications', function () {
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/register', [UserRegistrationController::class, 'show'])->name('register.show');
-Route::post('/register', [UserRegistrationController::class, 'store'])->name('register.store');
+Route::get('/user_registration', [UserRegistrationController::class, 'show'])->name('user_registration.show');
+Route::post('/user_registration', [UserRegistrationController::class, 'store'])->name('user_registration.store');
 
 Route::get('/user_login', [UserController::class, 'login'])->name('login');
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 
 Route::get('/user_dashboard', [UserController::class, 'dashboard'])->middleware('auth')->name('user.dashboard');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
 Route::get('/flight_results', [FlightController::class, 'search'])->name('flight.search');
 Route::get('/flight_all', [FlightController::class, 'showAll'])->name('flight.all');
 Route::get('/flight_return/{flight}', [FlightController::class, 'showReturnFlights'])->name('return.flights');
+Route::post('/flight/select/{id}', [FlightController::class, 'selectDepartureFlight'])->name('flight.selectDeparture');
+Route::get('/flight/return', [FlightController::class, 'showReturnFlights'])->name('flight.selectReturn');
+Route::post('/flight/reserve/round/{id}', [FlightController::class, 'reserveRoundTrip'])->name('flight.reserve.roundtrip');
+Route::post('/flight/reserve/oneway', [FlightController::class, 'reserveOneWay'])->name('flight.reserve.oneway');
+
+Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');

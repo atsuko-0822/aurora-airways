@@ -77,18 +77,26 @@
                 <div class="border rounded p-3">
                     <div class="d-flex align-items-center mb-3 text-muted">
                         <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
+                        @if ($nextReservation)
                     <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
                     </div>
-                    <p class="mb-1">2024/10/10 3:40 PM - 8:15 AM NRT - YVR 8hour 35min</p>
+                    <p class="mb-1">{{ $nextReservation->departureFlight->summary() }}</p>
                     <div class="border-bottom pb-2"></div>
                     <div class="d-flex align-items-center mb-3 mt-3 text-muted">
                         <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
+                        @if ($nextReservation->trip_type === 'round_trip')
                     <h3 class="fs-6 text-muted">Returning Flight</h3>
                     </div>
-                    <p class="mb-1">2024/10/20 6:45 PM - 9:00 PM YVR - NRT 10hour 15min</p>
+                    <p class="mb-1">{{ $nextReservation->returnFlight->summary() }}</p>
                     <div class="border-bottom pb-2"></div>
                     <div class="d-flex justify-content-end">
                     <p class="mt-3 mb-0">Total: $1,200
+                        @else
+                        <p>復路便：なし（片道）</p>
+                    @endif
+                @else
+                    <p>予約がありません。</p>
+                @endif
 
                         <button class="btn btn-sm me-2 receipt-btn"><div class="d-flex align-items-center">
                             <i class="fa-solid fa-receipt me-1"></i>receipt</div></button>

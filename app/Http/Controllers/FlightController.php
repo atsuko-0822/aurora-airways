@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Flight;
+use App\Models\Reservation;
+
+
 
 use Illuminate\Http\Request;
 
@@ -81,23 +84,54 @@ class FlightController extends Controller
 
         // $flights = $query->get();
         $flights = Flight::all();
-        // dd($flights);
 
         return view('flight_departure', compact('flights'));
     }
 
-    public function showReturnFlights(Flight $flight)
+    public function showReturnFlights(Request $request)
 {
-    // 復路便の条件：出発便と逆のfrom/toで、日付が後
-        $returnFlights = Flight::where('from', $flight->to)
-        ->where('to', $flight->from)
-        ->whereDate('departure_date', '>', $flight->departure_date)
+    $departureFlightId = $request->query('id');
+
+    $departureFlight = Flight::find($departureFlightId);
+    $returnFlights = Flight::where('from',$departureFlight->from)
+        ->where('to', $departureFlight->to)
+        ->whereDate('departure_date','>',$departureFlight->departure_date)
         ->orderBy('departure_date')
         ->get();
 
     return view('flight_return', [
-        'departingFlight' => $flight,
+        'departingFlight' => $departureFlight,
         'returnFlights' => $returnFlights,
     ]);
 }
+
+public function selectDepartureFlight(Request $request, $id) //往復予約を保存
+{
+// $id は出発便のIDです
+$request->session()->put('departure_flight_id', $id);
+$request->session()->put('trip_type', $request->input('trip_type')); // 'one_way' or 'round_trip'
+
+if ($request->input('trip_type') === 'one_way') {
+    return redirect()->route('flight.reserve.oneway');
+} else {
+    return redirect()->route('flight.selectReturn', ['id' => $id]);
+}
+}
+
+public function reserveRoundTrip(Request $request, $returnFlightId) //片道予約を保存
+{
+    $user = Auth::user();
+    $departureFlightId = $request->session()->get('departure_flight_id');
+
+    $reservation = new Reservation();
+    $reservation->user_id = $user->id;
+    $reservation->departure_flight_id = $departureFlightId;
+    $reservation->return_flight_id = $returnFlightId;
+    $reservation->trip_type = 'round_trip';
+    $reservation->save();
+
+    return redirect()->route('user.dashboard');
+}
+
+
  }
