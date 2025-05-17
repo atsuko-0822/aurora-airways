@@ -84,33 +84,20 @@ class FlightController extends Controller
 
         // $flights = $query->get();
         $flights = Flight::all();
-        // dd($flights);
 
         return view('flight_departure', compact('flights'));
     }
 
     public function showReturnFlights(Request $request)
 {
-    // 復路便の条件：出発便と逆のfrom/toで、日付が後
-    // dd($request->query('id'));
     $departureFlightId = $request->query('id');
 
-$departureFlight = Flight::find($departureFlightId);
-// dd($departureFlight);
-
-
-
-    // 復路便の条件を設定
-    // 復路便は出発便のfrom/toを逆にして、出発日が出発便の日付より後
-$returnFlights = Flight::where('from', $departureFlight->from)
-
-
-->where('to', $departureFlight->to)
-
-        ->whereDate('departure_date', '>',$departureFlight->departure_date)
+    $departureFlight = Flight::find($departureFlightId);
+    $returnFlights = Flight::where('from',$departureFlight->from)
+        ->where('to', $departureFlight->to)
+        ->whereDate('departure_date','>',$departureFlight->departure_date)
         ->orderBy('departure_date')
         ->get();
-
 
     return view('flight_return', [
         'departingFlight' => $departureFlight,
