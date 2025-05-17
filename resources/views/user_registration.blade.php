@@ -12,7 +12,7 @@
 
     <!-- 中央にフォーム配置 -->
     <div class="p-4 bg-white rounded-4 shadow registration-container m-5">
-      <form method="POST" action="{{ route('register.store') }}">
+      <form method="POST" action="{{ route('user_registration.store') }}">
         @csrf
 
         <div class="mb-3">

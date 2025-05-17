@@ -55,10 +55,7 @@ public function authenticate(Request $request)
         ]);
      }
 
-    public function dashboard()
-{
-    return view('user_dashboard'); // ダッシュボードビューを返す
-}
+
 
 public function logout(Request $request)
 {
@@ -68,6 +65,15 @@ public function logout(Request $request)
 
     return redirect('/user_login'); // ログインページにリダイレクト
 }
+
+public function dashboard() //ダッシュボードに予約を保存
+{
+    $user = Auth::user();
+    $nextReservation = $user->reservations()->latest()->first();
+
+    return view('user_dashboard', compact('nextReservation'));
+}
+
 }
 
 

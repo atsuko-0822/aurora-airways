@@ -40,6 +40,6 @@ class UserRegistrationController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Registration successful!');
+        return redirect()->route('user.dashboard')->with('success', 'Registration successful!');
     }
 }
