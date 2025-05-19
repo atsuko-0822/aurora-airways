@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 /* その他の要素の背景は透明に */
 section {
     background: transparent;
-    color: #0F384A !important; /* section 内のテキストのデフォルトカラー */
+    color: white !important; /* section 内のテキストのデフォルトカラー */
 }
 
 .container {
@@ -228,4 +228,8 @@ footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの�
 /* ... 他の CSS ... */
 .footer-container{
    margin-left: 80px;
+}
+
+.h1-btn{
+    color: white;
 }
