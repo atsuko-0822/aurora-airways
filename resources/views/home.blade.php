@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="hero position-relative text-center">
-        <img src="/image/airplaneall.png" class="img-fluid w-100" alt="Aurora Airways Airplane">
+        <img src="{{ asset('/image/airplaneall.png') }}" class="img-fluid w-100" alt="Aurora Airways Airplane">
         <div class="position-absolute top-50 start-50 translate-middle">
             <h1 class="display-4 mb-4">The finest experience for you</h1>
             <button class="btn btn-lg h1-btn">Book Now</button>
