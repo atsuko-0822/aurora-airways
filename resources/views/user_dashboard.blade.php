@@ -80,14 +80,18 @@
                         @if ($nextReservation)
                     <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
                     </div>
-                    <p class="mb-1">{{ $nextReservation->departureFlight->summary() }}</p>
+                    <p class="mb-1">{{ $nextReservation->departureFlight->from }}
+                        → {{ $nextReservation->departureFlight->to }}
+                        ({{ $nextReservation->departureFlight->departure_time }})</p>
                     <div class="border-bottom pb-2"></div>
                     <div class="d-flex align-items-center mb-3 mt-3 text-muted">
                         <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
                         @if ($nextReservation->trip_type === 'round_trip')
                     <h3 class="fs-6 text-muted">Returning Flight</h3>
                     </div>
-                    <p class="mb-1">{{ $nextReservation->returnFlight->summary() }}</p>
+                    <p class="mb-1">{{ $nextReservation->departureFlight->to }}
+                        → {{ $nextReservation->departureFlight->from }}
+                        ({{ $nextReservation->returnFlight->departure_time }})</p>
                     <div class="border-bottom pb-2"></div>
                     <div class="d-flex justify-content-end">
                     <p class="mt-3 mb-0">Total: $1,200
