@@ -77,6 +77,10 @@ Route::get('/notifications', function () {
     return view('notifications');
 });
 
+Route::get('/selected_flight', function () {
+    return view('selected_flight');
+});
+
 // Route::post('/logout', function () {
 //     Auth::logout();
 //     return redirect('/user_login'); // bladeファイルが user_login.blade.php の場合
