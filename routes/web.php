@@ -81,6 +81,10 @@ Route::get('/selected_flight', function () {
     return view('selected_flight');
 });
 
+Route::get('/payment', function () {
+    return view('payment');
+});
+
 // Route::post('/logout', function () {
 //     Auth::logout();
 //     return redirect('/user_login'); // bladeファイルが user_login.blade.php の場合
