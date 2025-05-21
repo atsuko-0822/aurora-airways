@@ -18,6 +18,7 @@ class FlightController extends Controller
         $from = $request->input('from');
         $to = $request->input('to');
         $departure_date = $request->input('departure_date');
+        $return_date = $request->input('return_date');
         $trip_type = $request->input('trip_type');
 
         if ($from) {
@@ -30,6 +31,10 @@ class FlightController extends Controller
 
         if ($departure_date) {
             $query->whereDate('departure_date', $departure_date);
+        }
+
+        if ($return_date) {
+            $query->whereDate('return_date', $return_date);
         }
 
         if ($trip_type) {
@@ -50,8 +55,31 @@ class FlightController extends Controller
     }
 
     // Show more ボタンで呼ばれる処理（全件表示）
-    public function showAll(Request $request)
+    public function showAllFlights(Request $request)
     {
+        $query = Flight::query();
+
+        if ($request->filled('from')) {
+            $query->where('from', $request->from);
+        }
+
+        if ($request->filled('to')) {
+            $query->where('to', $request->to);
+        }
+
+        if ($request->filled('departure_date')) {
+            $query->whereDate('departure_date', $request->departure_date);
+        }
+
+        if ($request->filled('trip_category')) {
+            $query->where('trip_category', $request->trip_category);
+        }
+
+        $flights = $query->get();
+
+        return view('flight_departure', compact('flights'));
+    }
+
         // $request->validate([
         //     'from' => 'nullable|string|max:255',
         //     'to' => 'nullable|string|max:255',
@@ -83,18 +111,18 @@ class FlightController extends Controller
         // }
 
         // $flights = $query->get();
-        $flights = Flight::all();
+        // $flights = Flight::all();
 
-        return view('flight_departure', compact('flights'));
-    }
+        // return view('flight_departure', compact('flights'));
+
 
     public function showReturnFlights(Request $request)
 {
     $departureFlightId = $request->query('id');
 
     $departureFlight = Flight::find($departureFlightId);
-    $returnFlights = Flight::where('from',$departureFlight->from)
-        ->where('to', $departureFlight->to)
+    $returnFlights = Flight::where('from',$departureFlight->to)
+        ->where('to', $departureFlight->from)
         ->whereDate('departure_date','>',$departureFlight->departure_date)
         ->orderBy('departure_date')
         ->get();
