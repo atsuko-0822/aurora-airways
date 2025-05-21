@@ -21,7 +21,7 @@
                 <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
                     <div class="me-3">{{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}</div>
                     <div class="me-3">{{ $flight->from }} - {{ $flight->to }}</div>
-                    <div class="me-3">{{ $flight->duration ?? 'N/A' }}</div>
+                    {{-- <div class="me-3">{{ $flight->duration ?? 'N/A' }}</div> --}}
                     <div>${{ number_format($flight->price) }}</div>
                 </div>
             </button>
