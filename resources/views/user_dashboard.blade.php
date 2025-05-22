@@ -93,8 +93,15 @@
                         → {{ $nextReservation->departureFlight->from }}
                         ({{ $nextReservation->returnFlight->departure_time }})</p>
                     <div class="border-bottom pb-2"></div>
-                    <div class="d-flex justify-content-end">
-                    <p class="mt-3 mb-0">Total: $1,200
+                    <div class="d-flex justify-content-end mt-3">
+                        @if ($nextReservation->trip_type === 'round_trip' && $nextReservation->returnFlight)
+                        @php
+                            $totalPrice = $nextReservation->departureFlight->price + $nextReservation->returnFlight->price;
+                        @endphp
+                        <p class="mb-0 me-3">Total: ${{ number_format($totalPrice, 0) }}</p>
+                    @else
+                        <p class="mb-0 me-3">Total: ${{ number_format($nextReservation->departureFlight->price, 0) }}</p>
+                    @endif
                         @else
                         <p>復路便：なし（片道）</p>
                     @endif

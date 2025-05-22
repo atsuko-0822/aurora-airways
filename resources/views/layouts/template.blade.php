@@ -47,7 +47,7 @@
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My bookings</a>
+                        <a class="nav-link" href="{{ route('user.dashboard') }}">My bookings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Check in</a>
@@ -70,7 +70,7 @@
                                 {{ Auth::user()->full_name }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                               <li><a class="dropdown-item" href="#">My Profile</a></li>
+                               <li><a class="dropdown-item" href="{{ route('user.dashboard') }}" >My Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Edit Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
