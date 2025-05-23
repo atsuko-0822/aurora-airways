@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="" class="text-decoration-none text-secondary">change your information ?</a>
+                        <a href="{{ route('edit.profile') }}" class="text-decoration-none text-secondary">change your information ?</a>
                     </div>
             </div>
         </div>

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,7 +53,7 @@ Route::get('/user_dashboard', function () {
 
 Route::get('/edit_profile', function () {
     return view('edit_profile');
-});
+})->name('edit.profile');
 
 Route::get('/cancel_change', function () {
     return view('cancel_change');
@@ -102,6 +104,7 @@ Route::get('/payment', function () {
 Route::get('/user_registration', [UserRegistrationController::class, 'show'])->name('user_registration.show');
 Route::post('/user_registration', [UserRegistrationController::class, 'store'])->name('user_registration.store');
 
+
 Route::get('/user_login', [UserController::class, 'login'])->name('login');
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 
@@ -117,3 +120,6 @@ Route::post('/flight/reserve/round/{id}', [FlightController::class, 'reserveRoun
 Route::post('/flight/reserve/oneway', [FlightController::class, 'reserveOneWay'])->name('flight.reserve.oneway');
 
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
