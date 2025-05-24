@@ -1,0 +1,13 @@
+.update-btn {
+    background-color: #f7b5a1;
+    width: 100px;
+}
+
+.create-cancel-btn {
+    background-color: #3e8bac;
+    width: 100px;
+}
+
+.edit-user-container {
+    margin-top: 100px;
+}

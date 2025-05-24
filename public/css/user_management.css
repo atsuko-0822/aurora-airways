@@ -1,6 +1,15 @@
 .user-manage-container {
 width: 100%;
-max-width: 800px;
+max-width: 1000px;
 margin-top: 100px;
 margin-bottom: 100px;
+}
+
+.add-user-btn {
+    background-color: #f7b5a1;
+}
+
+.manage-user-btn {
+    background-color: #3e8bac;
+    width: 100px;
 }
