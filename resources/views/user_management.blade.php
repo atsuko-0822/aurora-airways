@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="py-0 flight-bg d-flex align-items-center justify-content-center">
-    <div class="bg-white rounded shadow p-5 flight-departure" style="width: 100%; max-width: 800px;">
+    <div class="bg-white rounded shadow p-5 user-manage-container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="d-flex align-items-center">
                 <i class="fa-solid fa-users fa-lg mr-2 icon-plane"></i>
