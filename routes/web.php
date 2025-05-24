@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -134,3 +135,13 @@ Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+// 管理者ログインページ
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+
+// 管理者用ページ（ミドルウェアを使う）
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+});
