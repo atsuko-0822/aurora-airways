@@ -144,4 +144,9 @@ Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.logi
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('/user_management', [AdminController::class, 'showUsers'])->name('admin.users.index');
+    Route::get('/user_management/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+    Route::post('/user_management', [AdminController::class, 'storeUser'])->name('admin.users.store');
+    Route::get('/user_management/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::post('/user_management/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
 });

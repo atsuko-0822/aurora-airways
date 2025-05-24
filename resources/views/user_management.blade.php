@@ -12,38 +12,35 @@
                 <h1 class="fw-bold mb-0">Manage Users</h1>
             </div>
             {{-- ユーザー追加ボタン（必要に応じて使用） --}}
-            {{-- <a href="{{ route('admin.users.create') }}" class="btn btn-primary"> --}}
+            <a href="{{ route('admin.users.create') }}" class="btn rounded-pill add-user-btn text-white">
                 <i class="fa fa-plus me-1"></i> Add User
             </a>
         </div>
 
-        {{-- @if(count($users) > 0)
-            @foreach ($users as $user) --}}
+        @if(count($users) > 0)
+            @foreach ($users as $user)
                 <div class="flight-item d-flex justify-content-between align-items-center py-3 border-bottom">
                     <div class="me-3">
-                        {{-- {{ $user->name }} --}}
-                        John Doe
+                        {{ $user->full_name }}
                     </div>
                     <div class="me-3">
-                        {{-- {{ $user->email }} --}}
-                        john@example.com
+                        {{ $user->email }}
                     </div>
                     <div class="me-3">
-                        {{-- {{ $user->created_at->format('Y/m/d') }} --}}
-                        Joined: 2025/01/15
+                        Joined:{{ $user->created_at->format('Y/m/d') }}
                     </div>
 
                     {{-- 管理ボタン --}}
-                    {{-- <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success"> --}}
+                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn rounded-pill manage-user-btn text-white">
                         Manage
                     </a>
                 </div>
-            {{-- @endforeach
-        @else --}}
+            @endforeach
+        @else
             <div class="text-center mt-3">
                 <p>No users found.</p>
             </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 

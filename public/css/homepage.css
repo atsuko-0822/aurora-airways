@@ -233,3 +233,13 @@ footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの�
 .h1-btn{
     color: white;
 }
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
