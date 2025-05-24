@@ -90,6 +90,10 @@ Route::get('/payment', function () {
 Route::get('/manage_flight', function () {
     return view('manage_flight');
 });
+
+Route::get('/admin_login', function () {
+    return view('admin_login');
+});
 // Route::post('/logout', function () {
 //     Auth::logout();
 //     return redirect('/user_login'); // bladeファイルが user_login.blade.php の場合
