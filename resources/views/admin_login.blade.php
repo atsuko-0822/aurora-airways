@@ -12,7 +12,7 @@
         <div class="text-center mb-2">
             <img src="{{ asset('/image/Image 2 3.jpg') }}" class="d-block mx-auto" alt="Logo">
           </div>
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('admin.login.submit') }}">
         @csrf
 
         <div class="mb-3">
