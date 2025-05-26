@@ -13,3 +13,7 @@ margin-bottom: 100px;
     background-color: #3e8bac;
     width: 100px;
 }
+
+.name-width {
+    width: 20%;
+}

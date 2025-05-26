@@ -88,9 +88,9 @@ Route::get('/payment', function () {
     return view('payment');
 });
 
-Route::get('/manage_flight', function () {
-    return view('manage_flight');
-});
+// Route::get('/manage_flight', function () {
+//     return view('manage_flight');
+// });
 
 Route::get('/admin_login', function () {
     return view('admin_login');
@@ -150,3 +150,11 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/user_management/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::post('/user_management/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('flights', App\Http\Controllers\Admin\FlightController::class);
+});
+
+Route::get('/manage_flight', [FlightController::class, 'index'])->name('manage_flight');
+
+Route::patch('/user_management/{user}/toggle-visibility', [UserController::class, 'toggleVisibility'])->name('admin.users.toggleVisibility');
