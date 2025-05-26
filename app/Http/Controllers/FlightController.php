@@ -161,5 +161,11 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
     return redirect()->route('user.dashboard');
 }
 
+public function index()
+{
+    $flights = Flight::all();
+    return view('manage_flight', compact('flights'));
+}
+
 
  }

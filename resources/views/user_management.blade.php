@@ -19,21 +19,36 @@
 
         @if(count($users) > 0)
             @foreach ($users as $user)
-                <div class="flight-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                    <div class="me-3">
+                 <div class="flight-item d-flex align-items-center py-3 border-bottom">
+                    <div class="text-start name-width">
                         {{ $user->full_name }}
                     </div>
-                    <div class="me-3">
+                     <div class="flex-grow-1 text-start">
                         {{ $user->email }}
                     </div>
-                    <div class="me-3">
+                     <div class="flex-grow-1 text-start">
                         Joined:{{ $user->created_at->format('Y/m/d') }}
                     </div>
+               <div class="me-5">
+                     <form action="{{ route('admin.users.toggleVisibility', $user->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="btn btn-link p-0 m-0">
+                @if($user->is_active)
+                    <i class="fa-solid fa-eye text-success"></i>
+                @else
+                    <i class="fa-solid fa-eye-slash text-danger"></i>
+                @endif
+            </button>
+        </form>
+               </div>
 
                     {{-- 管理ボタン --}}
+                    <div>
                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn rounded-pill manage-user-btn text-white">
                         Manage
                     </a>
+                    </div>
                 </div>
             @endforeach
         @else

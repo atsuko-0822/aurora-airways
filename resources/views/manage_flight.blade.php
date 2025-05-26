@@ -12,36 +12,36 @@
                 <h1 class="fw-bold mb-0">Manage Flights</h1>
             </div>
             {{-- フライト追加ボタン --}}
-            {{-- <a href="{{ route('admin.flights.create') }}" class="btn btn-primary"> --}}
+            <a href="{{ route('admin.flights.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus me-1"></i> Add Flight
             </a>
         </div>
 
-        {{-- @if(count($flights) > 0)
-            @foreach ($flights as $flight) --}}
+        @if(count($flights) > 0)
+            @foreach ($flights as $flight)
                 <div class="flight-item d-flex justify-content-between align-items-center py-3 border-bottom">
                     <div class="me-3">
-                        {{-- {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} -
-                        {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }} --}}
+                        {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} -
+                        {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}
                     </div>
                     <div class="me-3">
-                        {{-- {{ $flight->from }} - {{ $flight->to }} --}}
+                        {{ $flight->from }} - {{ $flight->to }}
                     </div>
                     <div class="me-3">$
-                        {{-- {{ number_format($flight->price) }} --}}
+                        {{ number_format($flight->price) }}
                     </div>
 
                     {{-- 管理ボタン --}}
-                    {{-- <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-success"> --}}
+                    <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-success">
                         Manage
                     </a>
                 </div>
-            {{-- @endforeach
-        @else --}}
+            @endforeach
+        @else
             <div class="text-center mt-3">
                 <p>No flights found.</p>
             </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </div>
 

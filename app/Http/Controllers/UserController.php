@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -72,6 +73,14 @@ public function dashboard() //ダッシュボードに予約を保存
     $nextReservation = $user->reservations()->latest()->first();
 
     return view('user_dashboard', compact('nextReservation'));
+}
+
+ public function toggleVisibility(User $user)
+{
+    $user->is_active = !$user->is_active;
+    $user->save();
+
+    return redirect()->back()->with('status', 'User visibility updated!');
 }
 
 }

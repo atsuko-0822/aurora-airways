@@ -19,8 +19,11 @@
           <input type="email" class="form-control" id="email" name="email" required placeholder="Email adress" />
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 position-relative">
           <input type="password" class="form-control" id="password" name="password" required placeholder="Password"/>
+           <span class="position-absolute top-50 end-0 translate-middle-y me-3" onclick="togglePassword()" style="cursor: pointer;">
+    <i class="fa-solid fa-eye" id="toggleEye"></i>
+  </span>
         </div>
 
         <button type="submit" class="btn d-block mx-auto px-4 py-2 rounded-pill fw-bold login-btn">Login</button>
@@ -30,6 +33,8 @@
       </form>
     </div>
   </div>
+
+  <script src="{{ asset('js/admin_login.js') }}"></script>
 
   @endsection
 

@@ -55,4 +55,8 @@ class User extends Authenticatable
 {
     return $this->hasMany(Reservation::class);
 }
+
+protected $casts = [
+    'is_active' => 'boolean',
+];
 }
