@@ -4,45 +4,77 @@
 
 @section('content')
 
+@php
+    $flights = $flights ?? collect();
+@endphp
+
 <div class="py-0 flight-bg d-flex align-items-center justify-content-center">
-    <div class="bg-white rounded shadow p-5 flight-departure" style="width: 100%; max-width: 800px;">
+    <div class="bg-white rounded shadow p-5 flight-departure">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="d-flex align-items-center">
                 <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
                 <h1 class="fw-bold mb-0">Manage Flights</h1>
             </div>
-            {{-- フライト追加ボタン --}}
-            <a href="{{ route('admin.flights.create') }}" class="btn btn-primary">
-                <i class="fa fa-plus me-1"></i> Add Flight
+        </div>
+
+        {{-- 検索フォーム --}}
+      <form action="{{ route('admin.flights.index') }}" method="GET" class="mb-4">
+    <div class="form-row d-flex justify-content-center align-items-end">
+
+        <div class="form-group col-md-2 me-2">
+            <label for="from">From</label>
+            <select class="form-control" name="from" id="from">
+                <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
+                <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
+                <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2 me-2">
+            <label for="to">To</label>
+            <select class="form-control" name="to" id="to">
+                <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
+                <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
+                <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2 me-2">
+            <label for="departure_date">Departure Date</label>
+            <input type="date" class="form-control" name="departure_date" id="departure_date" value="{{ request('departure_date') }}">
+        </div>
+
+        <div class="form-group col-md-2 me-2">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn text-white rounded-pill w-100 admin-search-btn">Search</button>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label>&nbsp;</label>
+            <a href="{{ route('admin.flights.create') }}" class="btn text-white admin-add-btn rounded-pill w-100">
+                <i class="fa fa-plus"></i> Add Flight
             </a>
         </div>
 
-        @if(count($flights) > 0)
-            @foreach ($flights as $flight)
-                <div class="flight-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                    <div class="me-3">
-                        {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} -
-                        {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}
-                    </div>
-                    <div class="me-3">
-                        {{ $flight->from }} - {{ $flight->to }}
-                    </div>
-                    <div class="me-3">$
-                        {{ number_format($flight->price) }}
-                    </div>
-
-                    {{-- 管理ボタン --}}
-                    <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-success">
-                        Manage
-                    </a>
-                </div>
-            @endforeach
-        @else
-            <div class="text-center mt-3">
-                <p>No flights found.</p>
-            </div>
-        @endif
     </div>
+</form>
+{{-- 検索結果 --}}
+@if($flights->count() > 0)
+    <div class="bg-white rounded shadow p-4 mt-4">
+        @foreach($flights as $flight)
+            <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
+                <div>{{ $flight->from }} → {{ $flight->to }}</div>
+                <div>{{ $flight->departure_date }} {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }}</div>
+                <div>${{ number_format($flight->price) }}</div>
+                <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            </div>
+        @endforeach
+    </div>
+@else
+    <p class="text-center mt-4">No flights found.</p>
+@endif
+
 </div>
 
 @endsection

@@ -8,6 +8,7 @@ use App\Http\Controllers\FlightController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminFlightController;
 
 
 Route::get('/', function () {
@@ -158,3 +159,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/manage_flight', [FlightController::class, 'index'])->name('manage_flight');
 
 Route::patch('/user_management/{user}/toggle-visibility', [UserController::class, 'toggleVisibility'])->name('admin.users.toggleVisibility');
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::resource('flights', App\Http\Controllers\AdminFlightController::class);
+});
+
+Route::get('/admin/flights', [FlightController::class, 'index'])->name('admin.flights.index');
