@@ -161,11 +161,39 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
     return redirect()->route('user.dashboard');
 }
 
-public function index()
+// public function index()
+// {
+//     $flights = Flight::all();
+//     return view('manage_flight', compact('flights'));
+// }
+
+protected $fillable = [
+    'from', 'to', 'departure_date', 'departure_time', 'arrival_time', 'price', 'trip_category'
+];
+
+public function index(Request $request)
 {
-    $flights = Flight::all();
+    $flights = collect(); // デフォルトは空コレクション
+
+    if ($request->hasAny(['from', 'to', 'departure_date'])) {
+        $query = Flight::query();
+
+        if ($request->filled('from')) {
+            $query->where('from', $request->from);
+        }
+
+        if ($request->filled('to')) {
+            $query->where('to', $request->to);
+        }
+
+        if ($request->filled('departure_date')) {
+            $query->whereDate('departure_date', $request->departure_date);
+        }
+
+        $flights = $query->get();
+    }
+
     return view('manage_flight', compact('flights'));
 }
-
 
  }
