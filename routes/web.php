@@ -49,9 +49,6 @@ Route::get('/flight_return', function () {
     return view('flight_return');
 });
 
-Route::get('/user_dashboard', function () {
-    return view('user_dashboard');
-})->middleware('auth')->name('dashboard');
 
 Route::get('/edit_profile', function () {
     return view('edit_profile');
@@ -97,9 +94,7 @@ Route::get('/admin_login', function () {
     return view('admin_login');
 });
 
-Route::get('/user_management', function () {
-    return view('user_management');
-});
+
 // Route::post('/logout', function () {
 //     Auth::logout();
 //     return redirect('/user_login'); // bladeファイルが user_login.blade.php の場合
@@ -152,11 +147,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/user_management/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('flights', App\Http\Controllers\Admin\FlightController::class);
-});
 
-Route::get('/manage_flight', [FlightController::class, 'index'])->name('manage_flight');
+// Route::get('/manage_flight', [FlightController::class, 'index'])->name('manage_flight');
 
 Route::patch('/user_management/{user}/toggle-visibility', [UserController::class, 'toggleVisibility'])->name('admin.users.toggleVisibility');
 
@@ -164,4 +156,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('flights', App\Http\Controllers\AdminFlightController::class);
 });
 
-Route::get('/admin/flights', [FlightController::class, 'index'])->name('admin.flights.index');
+Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');
+Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');

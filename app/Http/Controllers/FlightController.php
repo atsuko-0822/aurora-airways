@@ -171,29 +171,65 @@ protected $fillable = [
     'from', 'to', 'departure_date', 'departure_time', 'arrival_time', 'price', 'trip_category'
 ];
 
+// public function index(Request $request)
+// {
+//     $flights = collect(); // デフォルトは空コレクション
+
+//     if ($request->hasAny(['from', 'to', 'departure_date'])) {
+//         $query = Flight::query();
+
+//         if ($request->filled('from')) {
+//             $query->where('from', $request->from);
+//         }
+
+//         if ($request->filled('to')) {
+//             $query->where('to', $request->to);
+//         }
+
+//         if ($request->filled('departure_date')) {
+//             $query->whereDate('departure_date', $request->departure_date);
+//         }
+
+//         $flights = $query->get();
+//     }
+
+//     return view('manage_flight', compact('flights'));
+// }
+
+
+public function toggleVisibility($id)
+{
+    $flight = Flight::findOrFail($id);
+
+    $flight->is_active = !$flight->is_active; // トグルで切り替え
+    $flight->save();
+
+    return redirect()->back();
+
+}
+
 public function index(Request $request)
 {
-    $flights = collect(); // デフォルトは空コレクション
+    $query = Flight::query(); // ← withTrashed() は不要
 
-    if ($request->hasAny(['from', 'to', 'departure_date'])) {
-        $query = Flight::query();
-
-        if ($request->filled('from')) {
-            $query->where('from', $request->from);
-        }
-
-        if ($request->filled('to')) {
-            $query->where('to', $request->to);
-        }
-
-        if ($request->filled('departure_date')) {
-            $query->whereDate('departure_date', $request->departure_date);
-        }
-
-        $flights = $query->get();
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
     }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('departure_date')) {
+        $query->whereDate('departure_date', $request->departure_date);
+    }
+
+    $flights = $query->get(); // 全件取得（is_active 関係なく取得）
 
     return view('manage_flight', compact('flights'));
 }
 
+
  }
+
+

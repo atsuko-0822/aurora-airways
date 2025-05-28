@@ -18,4 +18,8 @@ class Flight extends Model
         'trip_type',
         'price',
     ];
+
+
+
 }
+
