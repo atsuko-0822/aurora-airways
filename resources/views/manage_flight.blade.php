@@ -28,6 +28,9 @@
                 <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
                 <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
                 <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
+                <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
+                <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
+                <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
             </select>
         </div>
 
@@ -37,6 +40,9 @@
                 <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
                 <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
                 <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
+                <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
+                <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
+                <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
             </select>
         </div>
 
@@ -67,8 +73,27 @@
                 <div>{{ $flight->from }} → {{ $flight->to }}</div>
                 <div>{{ $flight->departure_date }} {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }}</div>
                 <div>${{ number_format($flight->price) }}</div>
-                <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-            </div>
+
+            {{-- 目アイコン --}}
+        <div class="me-4">
+            <form action="{{ route('admin.flights.toggleVisibility', $flight->id) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('PATCH')
+                <button type="submit" class="btn btn-link p-0 m-0">
+        @if($flight->is_active)
+            <i class="fa-solid fa-eye-slash text-danger"></i>
+        @else
+            <i class="fa-solid fa-eye text-success"></i>
+        @endif
+                </button>
+            </form>
+        </div>
+
+{{-- Editボタン --}}
+        <div>
+            <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </div>
+    </div>
         @endforeach
     </div>
 @else
