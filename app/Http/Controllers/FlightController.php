@@ -162,11 +162,11 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
     return redirect()->route('user.dashboard');
 }
 
-// public function index()
-// {
-//     $flights = Flight::all();
-//     return view('manage_flight', compact('flights'));
-// }
+public function index()
+{
+    $flights = Flight::all();
+    return view('manage_flight', compact('flights'));
+}
 
 
 // public function index(Request $request)
@@ -224,6 +224,26 @@ public function toggleVisibility($id)
     return redirect()->route('admin.flights.index')->with('success', 'Flight visibility toggled successfully.');
 }
 
+public function create()
+{
+    return view('add_flight'); // create.blade.php を表示
+}
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'from' => 'required|string',
+        'to' => 'required|string',
+        'departure_date' => 'required|date',
+        'departure_time' => 'required',
+        'arrival_time' => 'required',
+        'trip_type' => 'required|string',
+        'price' => 'required|numeric',
+    ]);
+
+    Flight::create($validated);
+
+    return redirect()->route('admin.flights.index')->with('success', 'Flight added successfully.');
+}
 
  }
 
