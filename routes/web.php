@@ -135,32 +135,25 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('prof
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
 
-// 管理者用ページ（ミドルウェアを使う）
+// 管理者用ルート（ミドルウェア付き）
 Route::middleware(['auth:admin'])->group(function () {
+    // 管理者ダッシュボード
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    // ユーザー管理
     Route::get('/user_management', [AdminController::class, 'showUsers'])->name('admin.users.index');
     Route::get('/user_management/create', [AdminController::class, 'createUser'])->name('admin.users.create');
     Route::post('/user_management', [AdminController::class, 'storeUser'])->name('admin.users.store');
     Route::get('/user_management/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::post('/user_management/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::patch('/user_management/{user}/toggle-visibility', [UserController::class, 'toggleVisibility'])->name('admin.users.toggleVisibility');
+
+    // フライト管理
+    Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');
+    Route::get('/manage_flight/create', [FlightController::class, 'create'])->name('admin.flights.create');
+    Route::post('/manage_flight', [FlightController::class, 'store'])->name('admin.flights.store');
+    Route::put('/manage_flight/{id}', [FlightController::class, 'update'])->name('admin.flights.update');
+    Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
+    Route::get('/flights/{id}/edit', [AdminFlightController::class, 'edit'])->name('flights.edit');
 });
-
-
-// Route::get('/manage_flight', [FlightController::class, 'index'])->name('manage_flight');
-
-Route::patch('/user_management/{user}/toggle-visibility', [UserController::class, 'toggleVisibility'])->name('admin.users.toggleVisibility');
-
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::resource('flights', App\Http\Controllers\AdminFlightController::class);
-});
-
-Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
-
-// フライトの編集画面を表示
-Route::get('/flights/{id}/edit', [AdminFlightController::class, 'edit'])->name('flights.edit');
-
-// フライト情報を更新（フォームのsubmit先）
-// Route::put('/flights/{id}', [AdminFlightController::class, 'update'])->name('flights.update');
-
-Route::put('/manage_flight/{id}', [FlightController::class, 'update'])->name('admin.flights.update');
