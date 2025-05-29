@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Flight;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -167,9 +168,6 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
 //     return view('manage_flight', compact('flights'));
 // }
 
-protected $fillable = [
-    'from', 'to', 'departure_date', 'departure_time', 'arrival_time', 'price', 'trip_category'
-];
 
 // public function index(Request $request)
 // {
@@ -196,37 +194,34 @@ protected $fillable = [
 //     return view('manage_flight', compact('flights'));
 // }
 
+public function update(Request $request, $id)
+{
+    $flight = Flight::findOrFail($id);
+
+    $validated = $request->validate([
+        'from' => 'required|string',
+        'to' => 'required|string',
+        'departure_date' => 'required|date',
+        'departure_time' => 'required',
+        'arrival_time' => 'required',
+        'trip_type' => 'required|string',
+        'price' => 'required|numeric',
+    ]);
+
+    $flight->update($validated);
+
+   return redirect()->route('admin.flights.index')->with('success', 'Flight updated successfully.');
+}
 
 public function toggleVisibility($id)
 {
     $flight = Flight::findOrFail($id);
 
-    $flight->is_active = !$flight->is_active; // トグルで切り替え
+    // 公開・非公開を切り替える例（例: visible カラムがある場合）
+    $flight->is_active = !$flight->is_active;
     $flight->save();
 
-    return redirect()->back();
-
-}
-
-public function index(Request $request)
-{
-    $query = Flight::query(); // ← withTrashed() は不要
-
-    if ($request->filled('from')) {
-        $query->where('from', $request->from);
-    }
-
-    if ($request->filled('to')) {
-        $query->where('to', $request->to);
-    }
-
-    if ($request->filled('departure_date')) {
-        $query->whereDate('departure_date', $request->departure_date);
-    }
-
-    $flights = $query->get(); // 全件取得（is_active 関係なく取得）
-
-    return view('manage_flight', compact('flights'));
+    return redirect()->route('admin.flights.index')->with('success', 'Flight visibility toggled successfully.');
 }
 
 

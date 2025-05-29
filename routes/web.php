@@ -124,7 +124,6 @@ Route::get('/flight_all', [FlightController::class, 'showAllFlights'])->name('fl
 Route::get('/flight_return/{flight}', [FlightController::class, 'showReturnFlights'])->name('return.flights');
 Route::post('/flight/select/{id}', [FlightController::class, 'selectDepartureFlight'])->name('flight.selectDeparture');
 Route::get('/flight/return', [FlightController::class, 'showReturnFlights'])->name('flight.selectReturn');
-Route::post('/flight/reserve/round/{id}', [FlightController::class, 'reserveRoundTrip'])->name('flight.reserve.roundtrip');
 Route::post('/flight/reserve/oneway', [FlightController::class, 'reserveOneWay'])->name('flight.reserve.oneway');
 
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
@@ -156,5 +155,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('flights', App\Http\Controllers\AdminFlightController::class);
 });
 
-Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');
-Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
+Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
+
+// フライトの編集画面を表示
+Route::get('/flights/{id}/edit', [AdminFlightController::class, 'edit'])->name('flights.edit');
+
+// フライト情報を更新（フォームのsubmit先）
+// Route::put('/flights/{id}', [AdminFlightController::class, 'update'])->name('flights.update');
+
+Route::put('/manage_flight/{id}', [FlightController::class, 'update'])->name('admin.flights.update');

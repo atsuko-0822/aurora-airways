@@ -9,16 +9,9 @@ class Flight extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'from',
-        'to',
-        'departure_date',
-        'departure_time',
-        'arrival_time',
-        'trip_type',
-        'price',
-    ];
 
+    protected $fillable = [
+        'from', 'to', 'departure_date', 'departure_time', 'arrival_time', 'price', 'trip_category'];
 
 
 }

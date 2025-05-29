@@ -64,4 +64,30 @@ public function index(Request $request)
     return view('manage_flight', compact('flights'));
 }
 
+public function edit($id)
+{
+    $flight = Flight::findOrFail($id);
+    return view('edit_flight', compact('flight'));
+}
+
+// // 編集内容を保存
+// public function update(Request $request, $id)
+// {
+//     $flight = Flight::findOrFail($id);
+
+//     // バリデーション
+//     $request->validate([
+//         'flight_number' => 'required|string|max:255',
+//         'departure' => 'required|string|max:255',
+//         'arrival' => 'required|string|max:255',
+//         'departure_time' => 'required|date',
+//         'arrival_time' => 'required|date',
+//     ]);
+
+//     // 更新処理
+//     $flight->update($request->all());
+
+//     return redirect()->route('flights.index')->with('success', 'Flight updated successfully');
+// }
+
 }

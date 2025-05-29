@@ -8,6 +8,7 @@
     $flights = $flights ?? collect();
 @endphp
 
+
 <div class="py-0 flight-bg d-flex align-items-center justify-content-center">
     <div class="bg-white rounded shadow p-5 flight-departure">
 
@@ -89,9 +90,10 @@
             </form>
         </div>
 
+
 {{-- Editボタン --}}
         <div>
-            <a href="{{ route('admin.flights.edit', $flight->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="{{ route('flights.edit', $flight->id) }}" class="btn btn-sm rounded-pill">Edit</a>
         </div>
     </div>
         @endforeach
