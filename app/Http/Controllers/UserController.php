@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class UserController extends Controller
 {
@@ -82,6 +85,66 @@ public function dashboard() //ダッシュボードに予約を保存
 
     return redirect()->back()->with('status', 'User visibility updated!');
 }
+
+public function redirectToGoogle()
+{
+     try{
+        // dd(Socialite::driver('google')->redirect()->getTargetUrl());
+        // dd(Socialite::driver('google')
+        //     ->redirectUrl(config('services.google.redirect'))
+        //     ->scopes(['email'])
+        //     ->redirect()
+        //     ->getTargetUrl());
+
+    return Socialite::driver('google')->redirect();
+} catch (Exception $e) {
+        Log::error('Google login redirect failed: ' . $e->getMessage(), [
+'exception' => $e
+]);
+}
+}
+
+public function handleGoogleCallback()
+{ try{
+
+    $googleUser = Socialite::driver('google')->stateless()->user();
+    $user = User::firstOrCreate(
+        ['email' => $googleUser->getEmail()],
+        [
+            'name' => $googleUser->getName(),
+            'password' => bcrypt(uniqid()), // ランダムパスワード
+        ]
+    );
+    Auth::login($user);
+    return redirect()->route('user.dashboard');
+    } catch (Exception $e) {
+        Log::error('Google login redirect failed: ' . $e->getMessage(), [
+'exception' => $e
+]);
+}
+}
+
+public function redirectToFacebook()
+{
+    return Socialite::driver('facebook')
+        ->scopes(['email'])
+        ->redirect();
+}
+
+public function handleFacebookCallback()
+{
+    $facebookUser = Socialite::driver('facebook')->stateless()->user();
+    $user = User::firstOrCreate(
+        ['email' => $facebookUser->getEmail()],
+        [
+            'name' => $facebookUser->getName(),
+            'password' => bcrypt(uniqid()),
+        ]
+    );
+    Auth::login($user);
+    return redirect()->route('user.dashboard');
+}
+
 
 }
 

@@ -116,7 +116,7 @@ Route::post('/user_registration', [UserRegistrationController::class, 'store'])-
 Route::get('/user_login', [UserController::class, 'login'])->name('login');
 Route::post('/authenticate', [UserController::class, 'authenticate'])->name('authenticate');
 
-Route::get('/user_dashboard', [UserController::class, 'dashboard'])->middleware('auth')->name('user.dashboard');
+Route::get('/user_dashboard', [UserController::class, 'dashboard'])->name('user.dashboard')->middleware('auth');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/flight_results', [FlightController::class, 'search'])->name('flight.search');
@@ -157,3 +157,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
     Route::get('/flights/{id}/edit', [AdminFlightController::class, 'edit'])->name('flights.edit');
 });
+
+// Social login routes
+Route::get('/auth/google', [UserController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [UserController::class, 'handleGoogleCallback']);
+
+Route::get('/auth/facebook', [UserController::class, 'redirectToFacebook'])->name('facebook.login');
+Route::get('/auth/facebook/callback', [UserController::class, 'handleFacebookCallback']);
