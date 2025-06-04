@@ -54,9 +54,9 @@ Route::get('/edit_profile', function () {
     return view('edit_profile');
 })->name('edit.profile');
 
-Route::get('/cancel_change', function () {
-    return view('cancel_change');
-});
+// Route::get('/cancel_change', function () {
+//     return view('cancel_change');
+// })->name('cancel_change');;
 
 Route::get('/contact_us', function () {
     return view('contact_us');
@@ -125,6 +125,13 @@ Route::get('/flight_return/{flight}', [FlightController::class, 'showReturnFligh
 Route::post('/flight/select/{id}', [FlightController::class, 'selectDepartureFlight'])->name('flight.selectDeparture');
 Route::get('/flight/return', [FlightController::class, 'showReturnFlights'])->name('flight.selectReturn');
 Route::post('/flight/reserve/oneway', [FlightController::class, 'reserveOneWay'])->name('flight.reserve.oneway');
+Route::post('/flights/cancel', [FlightController::class, 'cancel'])->name('flight.cancel');
+Route::get('/flights/change/departing', [FlightController::class, 'showDepartingOptions'])->name('flight.change.departing');
+Route::get('/flights/change/returning', [FlightController::class, 'showReturningOptions'])->name('flight.change.returning');
+Route::delete('/reservation/{id}/cancel', [FlightController::class, 'cancel'])->name('reservation.cancel');
+
+Route::get('/flights/manage', [ReservationController::class, 'showCancelOrChangePage'])->name('flight.manage');
+Route::get('/cancel_change', [ReservationController::class, 'showCancelOrChangePage'])->name('cancel_change');
 
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
 

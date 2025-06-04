@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -72,9 +73,16 @@ public function logout(Request $request)
 
 public function dashboard() //ダッシュボードに予約を保存
 {
-    $user = Auth::user();
-    $nextReservation = $user->reservations()->latest()->first();
-
+    $user_id = Auth::id();
+    $nextReservation = Reservation::where('user_id', $user_id)
+                              ->latest()
+                              ->first();
+    dd([
+        'auth_user_id' => $user_id,
+        'fetched_reservation_user_id' => $nextReservation?->user_id,
+        'reservation_id' => $nextReservation?->id,
+        'reservation' => $nextReservation,
+    ]);
     return view('user_dashboard', compact('nextReservation'));
 }
 

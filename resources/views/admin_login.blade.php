@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <script src="{{ sset('js/admin_login.js') }}"></script>
+  <script src="{{ asset('js/admin_login.js') }}"></script>
 
   @endsection
 

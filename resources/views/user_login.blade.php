@@ -50,7 +50,7 @@
 
           <br>
 
-          <a href="" class="text-decoration-none text-center d-block">Create account</a>
+          <a href="{{ route('user_registration.show') }}" class="text-decoration-none text-center d-block">Create account</a>
 
 
       </form>

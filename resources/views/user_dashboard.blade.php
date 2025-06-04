@@ -119,7 +119,7 @@
 
                         <button class="btn btn-sm me-2 receipt-btn"><div class="d-flex align-items-center">
                             <i class="fa-solid fa-receipt me-1"></i>receipt</div></button>
-                        <button class="btn btn-outline-danger btn-sm cancel-btn">Cancel or change your flight?</button>
+                        <a href="{{ route('cancel_change') }}" class="btn btn-outline-danger btn-sm cancel-btn">Cancel or change your flight?</a>
                     </p>
                     </div>
                 </div>
