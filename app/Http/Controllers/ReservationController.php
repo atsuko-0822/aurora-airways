@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
+use App\Models\User;
 
 class ReservationController extends Controller
 {
+    public function __construct(
+        User $user,
+        Reservation $reservation
+    ) {
+        $this->user = $user;
+        $this->reservation = $reservation;
+    }
+
     public function reserveRoundTrip(Request $request, $returnFlightId)
     {
         try{

@@ -76,8 +76,8 @@ public function logout(Request $request)
 
 public function dashboard() //ダッシュボードに予約を保存
 {
-    $user_id = Auth::id();
-    $nextReservation = Reservation::where('user_id', $user_id)
+    $user_id = Auth::user();
+    $nextReservation = Reservation::where('user_id', $user_id->id)
                               ->latest()
                               ->first();
     // dd([

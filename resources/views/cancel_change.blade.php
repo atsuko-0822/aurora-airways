@@ -42,8 +42,8 @@
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
         <h3 class="fs-6 text-muted">Returning Flight</h3>
         </div>
-         <p class="mb-1">{{ $reservation->departureFlight->to }}
-                        → {{ $reservation->departureFlight->from }}
+         <p class="mb-1">{{ $reservation->returnFlight->from }}
+                        → {{ $reservation->returnFlight->to }}
                         <span class="mx-2">|</span>
                         {{ $reservation->returnFlight->departure_time }}
                         <span class="mx-2">|</span>
@@ -85,7 +85,7 @@
                         <span class="mx-2">|</span>
                         {{ $reservation->departureFlight->departure_date }}
                     </p>
-            <a href="{{ route('flight.change.departing') }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">Change departing flight</a>
+            <a href="{{ route('flight.change.departing',['return_flight_id' => $reservation->return_flight_id, 'reservation_id' => $reservation->id]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">Change departing flight</a>
             </div>
             <div class="border-bottom pb-2"></div>
             <div class="d-flex align-items-center mb-3 mt-3 text-muted">
@@ -93,8 +93,8 @@
             <h3 class="fs-6 text-muted">Returning Flight</h3>
             </div>
             <div class="d-flex  justify-content-between align-items-center mb-0">
-           <p class="mb-1">{{ $reservation->departureFlight->to }}
-                        → {{ $reservation->departureFlight->from }}
+           <p class="mb-1">{{ $reservation->returnFlight->from }}
+                        → {{ $reservation->returnFlight->to }}
                         <span class="mx-2">|</span>
                         {{ $reservation->returnFlight->departure_time }}
                         <span class="mx-2">|</span>

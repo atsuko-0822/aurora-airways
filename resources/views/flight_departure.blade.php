@@ -14,9 +14,12 @@
 
         @if(count($flights) > 0)
         @foreach ($flights as $flight)
-        <form action="{{ route('flight.selectDeparture', ['id' => $flight->id]) }}" method="POST" class="flight-link d-block p-0 m-0">
+
+        <form action="{{ route('flight.selectDeparture', ['departureFlightId' => $flight->id]) }}" method="POST" class="flight-link d-block p-0 m-0">
             @csrf
-            <input type="hidden" name="trip_type" value="round_trip"> {{-- 必要に応じて one_way に変更可 --}}
+            <input type="hidden" name="return_flight_id" id="return_flight_id" value="{{ $returnFlightId }}">
+                <input type="hidden" name="trip_type" value="round_trip">
+                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
             <button type="submit" class="btn btn-link text-decoration-none w-100 p-0 m-0 text-dark text-start">
                 <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
                     <div class="me-3">{{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}</div>

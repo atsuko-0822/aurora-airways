@@ -75,9 +75,10 @@
                 </div>
 
                 <div class="border rounded p-3">
+                    @if ($nextReservation)
                     <div class="d-flex align-items-center mb-3 text-muted">
                         <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
-                        @if ($nextReservation)
+
                     <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
                     </div>
                     <p class="mb-1">{{ $nextReservation->departureFlight->from }}
@@ -88,13 +89,16 @@
                         {{ $nextReservation->departureFlight->departure_date }}
                     </p>
                     <div class="border-bottom pb-2"></div>
+
+                    @if ($nextReservation->trip_type === 'round_trip')
+
                     <div class="d-flex align-items-center mb-3 mt-3 text-muted">
                         <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
-                        @if ($nextReservation->trip_type === 'round_trip')
+
                     <h3 class="fs-6 text-muted">Returning Flight</h3>
                     </div>
-                    <p class="mb-1">{{ $nextReservation->departureFlight->to }}
-                        → {{ $nextReservation->departureFlight->from }}
+                    <p class="mb-1">{{ $nextReservation->returnFlight->from }}
+                        → {{ $nextReservation->returnFlight->to }}
                         <span class="mx-2">|</span>
                         {{ $nextReservation->returnFlight->departure_time }}
                         <span class="mx-2">|</span>

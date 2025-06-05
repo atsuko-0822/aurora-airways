@@ -122,7 +122,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/flight_results', [FlightController::class, 'search'])->name('flight.search');
 Route::get('/flight_all', [FlightController::class, 'showAllFlights'])->name('flight.all');
 Route::get('/flight_return/{flight}', [FlightController::class, 'showReturnFlights'])->name('return.flights');
-Route::post('/flight/select/{id}', [FlightController::class, 'selectDepartureFlight'])->name('flight.selectDeparture');
+Route::post('/flight/select/{departureFlightId}', [FlightController::class, 'selectDepartureFlight'])->name('flight.selectDeparture');
 Route::get('/flight/return', [FlightController::class, 'showReturnFlights'])->name('flight.selectReturn');
 Route::post('/flight/reserve/oneway', [FlightController::class, 'reserveOneWay'])->name('flight.reserve.oneway');
 Route::post('/flights/cancel', [FlightController::class, 'cancel'])->name('flight.cancel');

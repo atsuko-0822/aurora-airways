@@ -99,17 +99,25 @@ $returnFlights = Flight::where('from',$departureFlight->to)
     ]);
 }
 
-public function selectDepartureFlight(Request $request, $id) //往復予約を保存
+public function selectDepartureFlight(Request $request, $departureFlightId) //往復予約を保存
 {
+//     dd($departureFlightId);
 // $id は出発便のIDです
-$request->session()->put('departure_flight_id', $id);
-$request->session()->put('trip_type', $request->input('trip_type')); // 'one_way' or 'round_trip'
+ $user = Auth::user();
+    $returnFlightId = $request->input('return_flight_id');
 
-if ($request->input('trip_type') === 'one_way') {
-    return redirect()->route('flight.reserve.oneway');
-} else {
-    return redirect()->route('flight.selectReturn', ['id' => $id]);
-}
+    $reservationId = $request->input('reservation_id');
+$reservation = Reservation::find($reservationId);
+if (!$reservation || $reservation->user_id !== $user->id) {
+        abort(403, 'Unauthorized action.');
+    }
+    $reservation->user_id = $user->id;
+    $reservation->departure_flight_id = $departureFlightId;
+    $reservation->return_flight_id = $returnFlightId;
+    $reservation->trip_type = 'round_trip';
+    $reservation->save();
+
+    return redirect()->route('user.dashboard');
 }
 
 public function reserveRoundTrip(Request $request, $returnFlightId) //片道予約を保存
@@ -117,7 +125,11 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
     $user = Auth::user();
     $departureFlightId = $request->session()->get('departure_flight_id');
 
-    $reservation = new Reservation();
+    $reservationId = $request->input('reservation_id');
+$reservation = Reservation::find($reservationId);
+if (!$reservation || $reservation->user_id !== $user->id) {
+        abort(403, 'Unauthorized action.');
+    }
     $reservation->user_id = $user->id;
     $reservation->departure_flight_id = $departureFlightId;
     $reservation->return_flight_id = $returnFlightId;
@@ -224,12 +236,14 @@ public function cancel($id)
 }
 
 public function showDepartingOptions(Request $request)
-{$flights = Flight::where('from', $request->from)
-                     ->where('to', $request->to)
-                     ->whereDate('departure_time', $request->departure_date)
-                     ->get();
+{
+    $flights = Flight::all(); // デフォルトは空コレクション
 
-    return view('flight_departure', compact('flights'));
+    $returnFlightId = $request->query('return_flight_id');
+    $reservationId = $request->query('reservation_id');
+// dd($returnFlightId);
+
+    return view('flight_departure', compact('flights','returnFlightId','reservationId'));
 
  }
 
