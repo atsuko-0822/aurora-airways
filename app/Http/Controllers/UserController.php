@@ -33,6 +33,9 @@ class UserController extends Controller
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
         // ]);
+        if (Auth::check()) {
+            return redirect()->route('user.dashboard');
+        }
         return view('user_login');
     }
 
@@ -77,12 +80,12 @@ public function dashboard() //ダッシュボードに予約を保存
     $nextReservation = Reservation::where('user_id', $user_id)
                               ->latest()
                               ->first();
-    dd([
-        'auth_user_id' => $user_id,
-        'fetched_reservation_user_id' => $nextReservation?->user_id,
-        'reservation_id' => $nextReservation?->id,
-        'reservation' => $nextReservation,
-    ]);
+    // dd([
+    //     'auth_user_id' => $user_id,
+    //     'fetched_reservation_user_id' => $nextReservation?->user_id,
+    //     'reservation_id' => $nextReservation?->id,
+    //     'reservation' => $nextReservation,
+    // ]);
     return view('user_dashboard', compact('nextReservation'));
 }
 
@@ -104,11 +107,12 @@ public function redirectToGoogle()
         //     ->redirect()
         //     ->getTargetUrl());
 
-    return Socialite::driver('google')->redirect();
+    return Socialite::driver('google')->scopes(['email'])->redirect();
 } catch (Exception $e) {
         Log::error('Google login redirect failed: ' . $e->getMessage(), [
 'exception' => $e
 ]);
+return redirect('/login')->with('error', 'Google login failed');
 }
 }
 
@@ -119,7 +123,7 @@ public function handleGoogleCallback()
     $user = User::firstOrCreate(
         ['email' => $googleUser->getEmail()],
         [
-            'name' => $googleUser->getName(),
+            'full_name' => $googleUser->getName(),
             'password' => bcrypt(uniqid()), // ランダムパスワード
         ]
     );
@@ -145,7 +149,7 @@ public function handleFacebookCallback()
     $user = User::firstOrCreate(
         ['email' => $facebookUser->getEmail()],
         [
-            'name' => $facebookUser->getName(),
+            'full_name' => $facebookUser->getName(),
             'password' => bcrypt(uniqid()),
         ]
     );
