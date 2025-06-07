@@ -258,5 +258,52 @@ public function showDepartingOptions(Request $request)
     // dd($reservationId);
     return view('flight_return', compact('flights','departureFlightId','reservationId'));
 }
+
+// public function searchDeparture(Request $request)
+// {
+//     $query = Flight::query();
+
+//     if ($request->filled('from')) {
+//         $query->where('from', $request->from);
+//     }
+
+//     if ($request->filled('to')) {
+//         $query->where('to', $request->to);
+//     }
+
+//     if ($request->filled('departure_date')) {
+//         $query->whereDate('departure_date', $request->departure_date);
+//     }
+
+//     $flights = $query->get();
+
+//     return view('flight.searchDeparture', compact('flights'));
+// }
+
+public function changeDeparting(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('departure_date')) {
+        $query->whereDate('departure_date', $request->departure_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_departure', [
+        'flights' => $flights,
+        'returnFlightId' => $request->return_flight_id,
+        'reservationId' => $request->reservation_id,
+    ]);
+}
 }
 

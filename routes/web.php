@@ -129,6 +129,8 @@ Route::post('/flights/cancel', [FlightController::class, 'cancel'])->name('fligh
 Route::get('/flights/change/departing', [FlightController::class, 'showDepartingOptions'])->name('flight.change.departing');
 Route::get('/flights/change/returning', [FlightController::class, 'showReturningOptions'])->name('flight.change.returning');
 Route::delete('/reservation/{id}/cancel', [FlightController::class, 'cancel'])->name('reservation.cancel');
+// Route::get('/flights/departing/search', [FlightController::class, 'searchDeparture'])->name('flight.searchDeparture');
+Route::get('/flights/change/departing', [FlightController::class, 'changeDeparting'])->name('flight.changeDeparting');
 
 Route::get('/flights/manage', [ReservationController::class, 'showCancelOrChangePage'])->name('flight.manage');
 Route::get('/cancel_change', [ReservationController::class, 'showCancelOrChangePage'])->name('cancel_change');
