@@ -29,17 +29,34 @@
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
         <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
         </div>
-        <p class="mb-1">2024/10/10 3:40 PM - 8:15 AM NRT - YVR 8hour 35min</p>
+   <p class="mb-1">{{ $reservation->departureFlight->from }}
+                        → {{ $reservation->departureFlight->to }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->departureFlight->departure_time }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->departureFlight->departure_date }}
+                    </p>
+
         <div class="border-bottom pb-2"></div>
         <div class="d-flex align-items-center mb-3 mt-3 text-muted">
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
         <h3 class="fs-6 text-muted">Returning Flight</h3>
         </div>
-        <p class="mb-1">2024/10/20 6:45 PM - 9:00 PM YVR - NRT 10hour 15min</p>
+         <p class="mb-1">{{ $reservation->returnFlight->from }}
+                        → {{ $reservation->returnFlight->to }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->returnFlight->departure_time }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->returnFlight->return_date }}
+                    </p>
         <div class="border-bottom pb-2"></div>
         <div class="d-flex justify-content-end">
-        <p class="mt-3 mb-0">Total: $1,200
+        <p class="mt-3 mb-0">Total: $1,200</p>
+        <form action="{{ route('reservation.cancel', $reservation->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
     <button type="submit" class="btn d-block mx-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-cancel-btn">Cancel</button>
+        </form>
      </div>
         </div>
     </div>
@@ -61,8 +78,23 @@
             <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
             </div>
             <div class="d-flex  justify-content-between align-items-center mb-0">
-            <p class="mb-0">2024/10/10 3:40 PM - 8:15 AM NRT - YVR 8hour 35min</p>
-            <button type="submit" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">Change departing flight</button>
+          <p class="mb-1">{{ $reservation->departureFlight->from }}
+                        → {{ $reservation->departureFlight->to }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->departureFlight->departure_time }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->departureFlight->departure_date }}
+                    </p>
+           <a href="{{ route('flight.changeDeparting', [
+    'reservation_id' => $reservation->id,
+    'return_flight_id' => $reservation->return_flight_id,
+    'from' => $reservation->departureFlight->from,
+    'to' => $reservation->departureFlight->to,
+    'departure_date' => $reservation->departureFlight->departure_date
+]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
+    Change departing flight
+</a>
+ <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
             </div>
             <div class="border-bottom pb-2"></div>
             <div class="d-flex align-items-center mb-3 mt-3 text-muted">
@@ -70,9 +102,17 @@
             <h3 class="fs-6 text-muted">Returning Flight</h3>
             </div>
             <div class="d-flex  justify-content-between align-items-center mb-0">
-            <p class="mb-1">2024/10/20 6:45 PM - 9:00 PM YVR - NRT 10hour 15min</p>
+           <p class="mb-1">{{ $reservation->returnFlight->from }}
+                        → {{ $reservation->returnFlight->to }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->returnFlight->departure_time }}
+                        <span class="mx-2">|</span>
+                        {{ $reservation->returnFlight->return_date }}
+                    </p>
             <div class="border-bottom pb-2"></div>
-            <button type="submit" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">Change returning flight</button>
+            <a href="{{ route('flight.change.returning', ['departure_flight_id' => $reservation->departure_flight_id, 'reservation_id' => $reservation->id]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
+             Change returning flight
+                </a>
             </div>
 
          </div>

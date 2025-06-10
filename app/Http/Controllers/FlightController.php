@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Flight;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 
 use Illuminate\Http\Request;
@@ -81,48 +81,13 @@ class FlightController extends Controller
         return view('flight_departure', compact('flights'));
     }
 
-        // $request->validate([
-        //     'from' => 'nullable|string|max:255',
-        //     'to' => 'nullable|string|max:255',
-        //     'departure_date' => 'nullable|date',
-        //     'return_date' => 'nullable|date|after_or_equal:departure_date',
-        //     'trip_category' => 'nullable|in:one_way,round_trip',
-        // ]);
-
-        // $query = Flight::query();
-
-        // if ($request->input('from')) {
-        //     $query->where('from', $request->input('from'));
-        // }
-
-        // if ($request->input('to')) {
-        //     $query->where('to', $request->input('to'));
-        // }
-
-        // if ($request->input('departure_date')) {
-        //     $query->whereDate('departure_date', $request->input('departure_date'));
-        // }
-
-        // if ($request->input('trip_category')) {
-        //     if ($request->input('trip_category') === 'one_way') {
-        //         $query->where('trip_category', '0');
-        //     } elseif ($request->input('trip_category') === 'round_trip') {
-        //         $query->where('trip_category', '1');
-        //     }
-        // }
-
-        // $flights = $query->get();
-        // $flights = Flight::all();
-
-        // return view('flight_departure', compact('flights'));
-
-
     public function showReturnFlights(Request $request)
 {
     $departureFlightId = $request->query('id');
 
     $departureFlight = Flight::find($departureFlightId);
-    $returnFlights = Flight::where('from',$departureFlight->to)
+
+$returnFlights = Flight::where('from',$departureFlight->to)
         ->where('to', $departureFlight->from)
         ->whereDate('departure_date','>',$departureFlight->departure_date)
         ->orderBy('departure_date')
@@ -134,17 +99,25 @@ class FlightController extends Controller
     ]);
 }
 
-public function selectDepartureFlight(Request $request, $id) //往復予約を保存
+public function selectDepartureFlight(Request $request, $departureFlightId) //往復予約を保存
 {
+//     dd($departureFlightId);
 // $id は出発便のIDです
-$request->session()->put('departure_flight_id', $id);
-$request->session()->put('trip_type', $request->input('trip_type')); // 'one_way' or 'round_trip'
+ $user = Auth::user();
+    $returnFlightId = $request->input('return_flight_id');
 
-if ($request->input('trip_type') === 'one_way') {
-    return redirect()->route('flight.reserve.oneway');
-} else {
-    return redirect()->route('flight.selectReturn', ['id' => $id]);
-}
+    $reservationId = $request->input('reservation_id');
+$reservation = Reservation::find($reservationId);
+if (!$reservation || $reservation->user_id !== $user->id) {
+        abort(403, 'Unauthorized action.');
+    }
+    $reservation->user_id = $user->id;
+    $reservation->departure_flight_id = $departureFlightId;
+    $reservation->return_flight_id = $returnFlightId;
+    $reservation->trip_type = 'round_trip';
+    $reservation->save();
+
+    return redirect()->route('user.dashboard');
 }
 
 public function reserveRoundTrip(Request $request, $returnFlightId) //片道予約を保存
@@ -152,7 +125,11 @@ public function reserveRoundTrip(Request $request, $returnFlightId) //片道予�
     $user = Auth::user();
     $departureFlightId = $request->session()->get('departure_flight_id');
 
-    $reservation = new Reservation();
+    $reservationId = $request->input('reservation_id');
+$reservation = Reservation::find($reservationId);
+if (!$reservation || $reservation->user_id !== $user->id) {
+        abort(403, 'Unauthorized action.');
+    }
     $reservation->user_id = $user->id;
     $reservation->departure_flight_id = $departureFlightId;
     $reservation->return_flight_id = $returnFlightId;
@@ -169,31 +146,6 @@ public function index()
 }
 
 
-// public function index(Request $request)
-// {
-//     $flights = collect(); // デフォルトは空コレクション
-
-//     if ($request->hasAny(['from', 'to', 'departure_date'])) {
-//         $query = Flight::query();
-
-//         if ($request->filled('from')) {
-//             $query->where('from', $request->from);
-//         }
-
-//         if ($request->filled('to')) {
-//             $query->where('to', $request->to);
-//         }
-
-//         if ($request->filled('departure_date')) {
-//             $query->whereDate('departure_date', $request->departure_date);
-//         }
-
-//         $flights = $query->get();
-//     }
-
-//     return view('manage_flight', compact('flights'));
-// }
-
 public function update(Request $request, $id)
 {
     $flight = Flight::findOrFail($id);
@@ -202,6 +154,7 @@ public function update(Request $request, $id)
         'from' => 'required|string',
         'to' => 'required|string',
         'departure_date' => 'required|date',
+        'return_date' => 'required|date',
         'departure_time' => 'required',
         'arrival_time' => 'required',
         'trip_type' => 'required|string',
@@ -245,6 +198,94 @@ public function store(Request $request)
     return redirect()->route('admin.flights.index')->with('success', 'Flight added successfully.');
 }
 
+public function cancel($id)
+{
+    // 該当の予約を取得
+    $reservation = Reservation::findOrFail($id);
+
+    // キャンセル処理（例えばデータを削除）
+    $reservation->delete();
+
+    // ダッシュボードなどにリダイレクト
+    return redirect()->route('user.dashboard')->with('success', 'フライトをキャンセルしました。');
+}
+
+public function showDepartingOptions(Request $request)
+{
+    $flights = Flight::all(); // デフォルトは空コレクション
+
+    $returnFlightId = $request->query('return_flight_id');
+    $reservationId = $request->input('reservation_id');
+dd($reservationId);
+
+    return view('flight_departure', compact('flights','returnFlightId','reservationId'));
+
  }
+
+ public function showReturningOptions(Request $request)
+{
+
+    $flights = Flight::all(); // デフォルトは空コレクション
+
+    $departureFlightId = $request->query('departure_flight_id');
+    $reservationId = $request->query('reservation_id');
+
+    // dd($reservationId);
+    return view('flight_return', compact('flights','departureFlightId','reservationId'));
+}
+
+
+public function changeDeparting(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('departure_date')) {
+        $query->whereDate('departure_date', $request->departure_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_departure', [
+        'flights' => $flights,
+        'returnFlightId' => $request->return_flight_id,
+        'reservationId' => $request->reservation_id,
+    ]);
+}
+
+public function changeSearchDeparting(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('departure_date')) {
+        $query->whereDate('departure_date', $request->departure_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_departure', [
+        'flights' => $flights,
+        'returnFlightId' => $request->input('return_flight_id'),
+        'reservationId' => $request->input('reservation_id'),
+    ]);
+}
+}
 
 

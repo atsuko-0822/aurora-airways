@@ -6,6 +6,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Log;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class UserController extends Controller
 {
@@ -29,6 +33,9 @@ class UserController extends Controller
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
         // ]);
+        if (Auth::check()) {
+            return redirect()->route('user.dashboard');
+        }
         return view('user_login');
     }
 
@@ -69,9 +76,16 @@ public function logout(Request $request)
 
 public function dashboard() //ダッシュボードに予約を保存
 {
-    $user = Auth::user();
-    $nextReservation = $user->reservations()->latest()->first();
-
+    $user_id = Auth::user();
+    $nextReservation = Reservation::where('user_id', $user_id->id)
+                              ->latest()
+                              ->first();
+    // dd([
+    //     'auth_user_id' => $user_id,
+    //     'fetched_reservation_user_id' => $nextReservation?->user_id,
+    //     'reservation_id' => $nextReservation?->id,
+    //     'reservation' => $nextReservation,
+    // ]);
     return view('user_dashboard', compact('nextReservation'));
 }
 
@@ -82,6 +96,67 @@ public function dashboard() //ダッシュボードに予約を保存
 
     return redirect()->back()->with('status', 'User visibility updated!');
 }
+
+public function redirectToGoogle()
+{
+     try{
+        // dd(Socialite::driver('google')->redirect()->getTargetUrl());
+        // dd(Socialite::driver('google')
+        //     ->redirectUrl(config('services.google.redirect'))
+        //     ->scopes(['email'])
+        //     ->redirect()
+        //     ->getTargetUrl());
+
+    return Socialite::driver('google')->scopes(['email'])->redirect();
+} catch (Exception $e) {
+        Log::error('Google login redirect failed: ' . $e->getMessage(), [
+'exception' => $e
+]);
+return redirect('/login')->with('error', 'Google login failed');
+}
+}
+
+public function handleGoogleCallback()
+{ try{
+
+    $googleUser = Socialite::driver('google')->stateless()->user();
+    $user = User::firstOrCreate(
+        ['email' => $googleUser->getEmail()],
+        [
+            'full_name' => $googleUser->getName(),
+            'password' => bcrypt(uniqid()), // ランダムパスワード
+        ]
+    );
+    Auth::login($user);
+    return redirect()->route('user.dashboard');
+    } catch (Exception $e) {
+        Log::error('Google login redirect failed: ' . $e->getMessage(), [
+'exception' => $e
+]);
+}
+}
+
+public function redirectToFacebook()
+{
+    return Socialite::driver('facebook')
+        ->scopes(['email'])
+        ->redirect();
+}
+
+public function handleFacebookCallback()
+{
+    $facebookUser = Socialite::driver('facebook')->stateless()->user();
+    $user = User::firstOrCreate(
+        ['email' => $facebookUser->getEmail()],
+        [
+            'full_name' => $facebookUser->getName(),
+            'password' => bcrypt(uniqid()),
+        ]
+    );
+    Auth::login($user);
+    return redirect()->route('user.dashboard');
+}
+
 
 }
 

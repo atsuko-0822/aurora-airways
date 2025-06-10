@@ -33,4 +33,5 @@ class Reservation extends Model
     {
         return $this->belongsTo(Flight::class, 'return_flight_id');
     }
+
 }

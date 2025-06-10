@@ -1,8 +1,12 @@
 @extends('layouts.template')
 
+    <link rel="stylesheet" href="{{ asset('css/flight_search.css') }}">
+
+
 @section('title', 'Flight Search')
 
 @section('content')
+
 
 <section class="hero position-relative text-center text-white">
     <img src="/image/jake-weirick-Q_RBVFFXR_g-unsplash.jpg" class="img-fluid w-100 sky-photo"  alt="Night Sky">

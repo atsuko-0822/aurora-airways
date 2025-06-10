@@ -33,24 +33,24 @@
         <br>
 
         <div class="mb-3">
-            <button class="btn d-flex align-items-center justify-content-center google-btn w-75 mx-auto">
+            <a href="{{ route('google.login') }}" class="btn d-flex align-items-center justify-content-center google-btn w-75 mx-auto">
                 <i class="fa-brands fa-google me-2"></i>
                 Sign in with Google
-            </button>
+            </a>
           </div>
 
           <div class="mb-3">
-            <button class="btn d-flex align-items-center justify-content-center facebook-btn w-75 mx-auto">
+            <a href="{{ route('facebook.login') }}" class="btn d-flex align-items-center justify-content-center facebook-btn w-75 mx-auto">
                 <i class="fa-brands fa-facebook-f me-2"></i>
                 Sign in with Facebook
-            </button>
+           </a>
           </div>
 
           <a href="" class="text-decoration-none text-center d-block">or</a>
 
           <br>
 
-          <a href="" class="text-decoration-none text-center d-block">Create account</a>
+          <a href="{{ route('user_registration.show') }}" class="text-decoration-none text-center d-block">Create account</a>
 
 
       </form>
