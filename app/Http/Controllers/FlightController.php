@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Flight;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 
 use Illuminate\Http\Request;
@@ -146,31 +146,6 @@ public function index()
 }
 
 
-// public function index(Request $request)
-// {
-//     $flights = collect(); // デフォルトは空コレクション
-
-//     if ($request->hasAny(['from', 'to', 'departure_date'])) {
-//         $query = Flight::query();
-
-//         if ($request->filled('from')) {
-//             $query->where('from', $request->from);
-//         }
-
-//         if ($request->filled('to')) {
-//             $query->where('to', $request->to);
-//         }
-
-//         if ($request->filled('departure_date')) {
-//             $query->whereDate('departure_date', $request->departure_date);
-//         }
-
-//         $flights = $query->get();
-//     }
-
-//     return view('manage_flight', compact('flights'));
-// }
-
 public function update(Request $request, $id)
 {
     $flight = Flight::findOrFail($id);
@@ -240,8 +215,8 @@ public function showDepartingOptions(Request $request)
     $flights = Flight::all(); // デフォルトは空コレクション
 
     $returnFlightId = $request->query('return_flight_id');
-    $reservationId = $request->query('reservation_id');
-// dd($returnFlightId);
+    $reservationId = $request->input('reservation_id');
+dd($reservationId);
 
     return view('flight_departure', compact('flights','returnFlightId','reservationId'));
 
@@ -259,26 +234,6 @@ public function showDepartingOptions(Request $request)
     return view('flight_return', compact('flights','departureFlightId','reservationId'));
 }
 
-// public function searchDeparture(Request $request)
-// {
-//     $query = Flight::query();
-
-//     if ($request->filled('from')) {
-//         $query->where('from', $request->from);
-//     }
-
-//     if ($request->filled('to')) {
-//         $query->where('to', $request->to);
-//     }
-
-//     if ($request->filled('departure_date')) {
-//         $query->whereDate('departure_date', $request->departure_date);
-//     }
-
-//     $flights = $query->get();
-
-//     return view('flight.searchDeparture', compact('flights'));
-// }
 
 public function changeDeparting(Request $request)
 {
@@ -305,5 +260,32 @@ public function changeDeparting(Request $request)
         'reservationId' => $request->reservation_id,
     ]);
 }
+
+public function changeSearchDeparting(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('departure_date')) {
+        $query->whereDate('departure_date', $request->departure_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_departure', [
+        'flights' => $flights,
+        'returnFlightId' => $request->input('return_flight_id'),
+        'reservationId' => $request->input('reservation_id'),
+    ]);
 }
+}
+
 

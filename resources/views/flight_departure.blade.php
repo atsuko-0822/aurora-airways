@@ -4,41 +4,6 @@
 
 @section('content')
 
-{{-- <div class="py-0 flight-bg d-flex align-items-center justify-content-center">
-    <div class="bg-white rounded shadow p-5 flight-departure">
-        <div class="d-flex align-items-center mb-3">
-            <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
-            <h1 class="fw-bold mb-0">Departing Flight</h1>
-        </div>
-
-
-        @if(count($flights) > 0)
-        @foreach ($flights as $flight)
-
-        <form action="{{ route('flight.selectDeparture', ['departureFlightId' => $flight->id]) }}" method="POST" class="flight-link d-block p-0 m-0">
-            @csrf
-            <input type="hidden" name="return_flight_id" id="return_flight_id" value="{{ $returnFlightId }}">
-                <input type="hidden" name="trip_type" value="round_trip">
-                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
-            <button type="submit" class="btn btn-link text-decoration-none w-100 p-0 m-0 text-dark text-start">
-                <div class="flight-item d-flex justify-content-between align-items-center py-4 border-bottom">
-                    <div class="me-3">{{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($flight->arrival_time)->format('g:i A') }}</div>
-                    <div class="me-3">{{ $flight->from }} - {{ $flight->to }}</div>
-                    <div>${{ number_format($flight->price) }}</div>
-                </div>
-            </button>
-        </form>
-        @endforeach
-    @else
-        <div class="text-center mt-3">
-            <p>No flights found.</p>
-        </div>
-    @endif
-</div>
-</div>
-
-@endsection
- --}}
 
  @php
     $flights = $flights ?? collect();
@@ -56,7 +21,8 @@
         </div>
 
         {{-- 検索フォーム --}}
-      <form action="{{ route('flight.changeDeparting') }}" method="GET" class="mb-4">
+      <form action="{{ route('flight.changeSearchDeparting', ['reservation_id' => $reservationId, 'return_flight_id' => $returnFlightId ]) }}" method="GET" class="mb-4">
+        @csrf
     <div class="form-row d-flex justify-content-center align-items-end">
 
         <div class="form-group col-md-2 me-2">
@@ -65,9 +31,9 @@
                 <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
                 <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
                 <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
-                <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
-                <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
-                <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
+                <option value="Vancouver" {{ request('from') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
+                <option value="Toronto" {{ request('from') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
+                <option value="Montreal" {{ request('from') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
             </select>
         </div>
 
@@ -77,9 +43,9 @@
                 <option value="Vancouver" {{ request('to') == 'Vancouver' ? 'selected' : '' }}>Vancouver</option>
                 <option value="Toronto" {{ request('to') == 'Toronto' ? 'selected' : '' }}>Toronto</option>
                 <option value="Montreal" {{ request('to') == 'Montreal' ? 'selected' : '' }}>Montreal</option>
-                <option value="Tokyo" {{ request('from') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
-                <option value="Osaka" {{ request('from') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
-                <option value="Fukuoka" {{ request('from') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
+                <option value="Tokyo" {{ request('to') == 'Tokyo' ? 'selected' : '' }}>Tokyo</option>
+                <option value="Osaka" {{ request('to') == 'Osaka' ? 'selected' : '' }}>Osaka</option>
+                <option value="Fukuoka" {{ request('to') == 'Fukuoka' ? 'selected' : '' }}>Fukuoka</option>
             </select>
         </div>
 
@@ -93,6 +59,9 @@
             <button type="submit" class="btn text-white rounded-pill w-100 admin-search-btn">Search</button>
         </div>
 
+        <input type="hidden" name="return_flight_id" id="return_flight_id"value="{{ $returnFlightId }}">
+        <input type="hidden" name="trip_type" value="round_trip">
+        <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
 
     </div>
 </form>
@@ -101,11 +70,12 @@
     @if($flights->count() > 0)
         <div class="bg-white rounded shadow p-4 mt-4">
             @foreach($flights as $flight)
-            <form action="{{ route('flight.selectDeparture', ['departureFlightId' => $flight->id]) }}" method="POST" class="mb-3">
+            <form action="{{ route('reserve.departure', ['departureFlightId' => $flight->id]) }}" method="POST" class="mb-3">
                 @csrf
-                <input type="hidden" name="return_flight_id" value="{{ $returnFlightId }}">
+                 <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
+                 <input type="hidden" name="return_flight_id" id="return_flight_id"value="{{ $returnFlightId }}">
                 <input type="hidden" name="trip_type" value="round_trip">
-                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+                 <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
 
                 <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
                     <div class="border-bottom py-3 d-flex justify-content-between align-items-center">

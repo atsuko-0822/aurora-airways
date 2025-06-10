@@ -85,7 +85,16 @@
                         <span class="mx-2">|</span>
                         {{ $reservation->departureFlight->departure_date }}
                     </p>
-            <a href="{{ route('flight.change.departing',['return_flight_id' => $reservation->return_flight_id, 'reservation_id' => $reservation->id]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">Change departing flight</a>
+           <a href="{{ route('flight.changeDeparting', [
+    'reservation_id' => $reservation->id,
+    'return_flight_id' => $reservation->return_flight_id,
+    'from' => $reservation->departureFlight->from,
+    'to' => $reservation->departureFlight->to,
+    'departure_date' => $reservation->departureFlight->departure_date
+]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
+    Change departing flight
+</a>
+ <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
             </div>
             <div class="border-bottom pb-2"></div>
             <div class="d-flex align-items-center mb-3 mt-3 text-muted">
