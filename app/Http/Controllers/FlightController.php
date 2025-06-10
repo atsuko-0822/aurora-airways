@@ -287,5 +287,3 @@ public function changeSearchDeparting(Request $request)
     ]);
 }
 }
-
-
