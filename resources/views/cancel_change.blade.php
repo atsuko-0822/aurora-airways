@@ -25,6 +25,7 @@
     </div>
 
     <div class="border rounded p-3">
+         @if ($reservation)
         <div class="d-flex align-items-center mb-3 text-muted">
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
         <h3 class="fs-6 text-muted mt-1">Departing Flight</h3>
@@ -38,6 +39,8 @@
                     </p>
 
         <div class="border-bottom pb-2"></div>
+
+         @if ($reservation->trip_type === 'round_trip')
         <div class="d-flex align-items-center mb-3 mt-3 text-muted">
             <i class="fa-solid fa-plane-departure fa-lg mr-2 icon-plane"></i>
         <h3 class="fs-6 text-muted">Returning Flight</h3>
@@ -50,8 +53,23 @@
                         {{ $reservation->returnFlight->return_date }}
                     </p>
         <div class="border-bottom pb-2"></div>
-        <div class="d-flex justify-content-end">
-        <p class="mt-3 mb-0">Total: $1,200</p>
+
+        <div class="d-flex justify-content-end mt-3">
+                        @if ($reservation->trip_type === 'round_trip' && $reservation->returnFlight)
+                        @php
+                            $totalPrice = $reservation->departureFlight->price + $reservation->returnFlight->price;
+                        @endphp
+                        <p class="mb-0 me-3 mt-3">Total: ${{ number_format($totalPrice, 0) }}</p>
+                    @else
+                        <p class="mb-0 me-3 mt-3">Total: ${{ number_format($reservation->departureFlight->price, 0) }}</p>
+                    @endif
+                        @else
+                        <p>復路便：なし（片道）</p>
+                    @endif
+                @else
+                    <p>予約がありません。</p>
+                @endif
+
         <form action="{{ route('reservation.cancel', $reservation->id) }}" method="POST">
     @csrf
     @method('DELETE')
@@ -110,7 +128,10 @@
                         {{ $reservation->returnFlight->return_date }}
                     </p>
             <div class="border-bottom pb-2"></div>
-            <a href="{{ route('flight.change.returning', ['departure_flight_id' => $reservation->departure_flight_id, 'reservation_id' => $reservation->id]) }}" class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
+            <a href="{{ route('flight.change.returning',
+            ['departure_flight_id' => $reservation->departure_flight_id,
+            'reservation_id' => $reservation->id]) }}"
+            class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
              Change returning flight
                 </a>
             </div>
@@ -118,9 +139,6 @@
          </div>
             </div>
         </div>
-
-
-
 
   @endsection
 
