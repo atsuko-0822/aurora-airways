@@ -99,6 +99,8 @@ Route::delete('/reservation/{id}/cancel', [FlightController::class, 'cancel'])->
 
 Route::get('/flights/change/departing', [FlightController::class, 'changeDeparting'])->name('flight.changeDeparting');
 Route::get('/flights/change/search/departing', [FlightController::class, 'changeSearchDeparting'])->name('flight.changeSearchDeparting');
+Route::get('/flights/change/returning', [FlightController::class, 'changeReturning'])->name('flight.changeReturning');
+Route::get('/flights/change/search/returning', [FlightController::class, 'changeSearchReturning'])->name('flight.changeSearchReturning');
 
 
 Route::get('/flights/manage/departing', [ReservationController::class, 'showCancelOrChangePage'])->name('flight.manage');
@@ -106,6 +108,7 @@ Route::get('/cancel_change', [ReservationController::class, 'showCancelOrChangeP
 
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
 Route::post('/reserve/departure/{departureFlightId}', [ReservationController::class, 'reserveDeparture'])->name('reserve.departure');
+Route::post('/reserve/return/{returnFlightId}', [ReservationController::class, 'reserveReturn'])->name('reserve.return');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

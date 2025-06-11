@@ -261,6 +261,32 @@ public function changeDeparting(Request $request)
     ]);
 }
 
+public function changeReturning(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('return_date')) {
+        $query->whereDate('return_date', $request->return_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_return', [
+        'flights' => $flights,
+        'departureFlightId' => $request->departure_flight_id,
+        'reservationId' => $request->reservation_id,
+    ]);
+}
+
 public function changeSearchDeparting(Request $request)
 {
     // クエリビルダー
@@ -283,6 +309,32 @@ public function changeSearchDeparting(Request $request)
     return view('flight_departure', [
         'flights' => $flights,
         'returnFlightId' => $request->input('return_flight_id'),
+        'reservationId' => $request->input('reservation_id'),
+    ]);
+}
+
+public function changeSearchReturning(Request $request)
+{
+    // クエリビルダー
+    $query = Flight::query();
+
+    if ($request->filled('from')) {
+        $query->where('from', $request->from);
+    }
+
+    if ($request->filled('to')) {
+        $query->where('to', $request->to);
+    }
+
+    if ($request->filled('return_date')) {
+        $query->whereDate('return_date', $request->return_date);
+    }
+
+    $flights = $query->get();
+
+    return view('flight_return', [
+        'flights' => $flights,
+        'departureFlightId' => $request->input('departure_flight_id'),
         'reservationId' => $request->input('reservation_id'),
     ]);
 }
