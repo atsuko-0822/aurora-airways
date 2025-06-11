@@ -83,6 +83,37 @@ class ReservationController extends Controller
         }
     }
 
+    public function reserveReturn(Request $request, $returnFlightId)
+    {
+        Log::info('🛬 reserveReturn hit!', [
+            'method' => $request->method(),
+            'url' => $request->fullUrl(),
+            'returnFlightId' => $returnFlightId,
+            'request_data' => $request->all()
+        ]);
+        try{
+
+        $user = Auth::user();
+        $departureFlightId = $request->input('departure_flight_id');
+        $reservationId = $request->input('reservation_id');
+
+        $reservation = Reservation::where('id', $reservationId)
+                              ->where('user_id', $user->id)
+                              ->firstOrFail();
+
+        $reservation->return_flight_id = $returnFlightId;
+        $reservation->departure_flight_id = $departureFlightId;
+        $reservation->trip_type = 'round_trip';
+        $reservation->save();
+
+        return redirect()->route('user.dashboard');
+        } catch (Exception $e) {
+            Log::error('Error saving into the DB: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+        }
+    }
+
    public function showCancelOrChangePage()
 {
     $user = Auth::user();

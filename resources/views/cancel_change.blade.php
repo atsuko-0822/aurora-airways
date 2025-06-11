@@ -128,9 +128,12 @@
                         {{ $reservation->returnFlight->return_date }}
                     </p>
             <div class="border-bottom pb-2"></div>
-            <a href="{{ route('flight.change.returning',
-            ['departure_flight_id' => $reservation->departure_flight_id,
-            'reservation_id' => $reservation->id]) }}"
+            <a href="{{ route('flight.changeReturning', [
+            'reservation_id' => $reservation->id,
+            'departure_flight_id' => $reservation->departure_flight_id,
+            'from' => $reservation->returnFlight->from,
+            'to' => $reservation->returnFlight->to,
+            'return_date' => $reservation->returnFlight->return_date]) }}"
             class="btn d-block ms-auto mt-1 px-4 py-2 rounded-pill fw-bold text-white flight-change-btn">
              Change returning flight
                 </a>
