@@ -6,7 +6,10 @@
 
 
  @php
+    // $flights = $flights ?? collect();
     $flights = $flights ?? collect();
+    $reservationId = $reservationId ?? '';
+    $returnFlightId = $returnFlightId ?? '';
 @endphp
 
 

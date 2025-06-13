@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class ReservationController extends Controller
 {
@@ -39,7 +41,7 @@ class ReservationController extends Controller
         $reservation->save();
 
         // dd($reservation);
-        return redirect()->route('user.dashboard');
+        return redirect()->route('checkout');
         } catch (Exception $e) {
             Log::error('Error saving into the DB: ' . $e->getMessage(), [
                 'exception' => $e
@@ -73,9 +75,14 @@ class ReservationController extends Controller
         $reservation->trip_type = 'round_trip';
         // dd($reservation);
         $reservation->save();
-
-        // dd($reservation);
-        return redirect()->route('user.dashboard');
+$returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
+        $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
+          session()->forget('total_price');
+        $totalPrice = $returnFlight->price + $departureFlight->price;
+        session()->put('total_price', $totalPrice);
+            // dd($totalPrice);
+        // Stripe決済ページにリダイレクト（価格をGETパラメータで渡す）
+        return redirect()->route('checkout');
         } catch (Exception $e) {
             Log::error('Error saving into the DB: ' . $e->getMessage(), [
                 'exception' => $e
@@ -106,12 +113,19 @@ class ReservationController extends Controller
         $reservation->trip_type = 'round_trip';
         $reservation->save();
 
-        return redirect()->route('user.dashboard');
-        } catch (Exception $e) {
-            Log::error('Error saving into the DB: ' . $e->getMessage(), [
-                'exception' => $e
-            ]);
-        }
+        $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
+        $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
+            session()->forget('total_price');
+        $totalPrice = $returnFlight->price + $departureFlight->price;
+        session()->put('total_price', $totalPrice);
+            // dd($totalPrice);
+        // Stripe決済ページにリダイレクト（価格をGETパラメータで渡す）
+        return redirect()->route('checkout',['total_price'->$totalPrice]);
+
+    } catch (\Exception $e) {
+        \Log::error('Error in reserveReturn: ' . $e->getMessage(), ['exception' => $e]);
+        return redirect()->route('user.dashboard')->with('error', 'Something went wrong during reservation.');
+    }
     }
 
    public function showCancelOrChangePage()
@@ -130,3 +144,5 @@ class ReservationController extends Controller
     return view('cancel_change', compact('reservation'));
 }
 }
+
+
