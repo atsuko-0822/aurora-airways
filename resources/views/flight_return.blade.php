@@ -97,6 +97,10 @@
     @if(isset($isFromSearch) && $isFromSearch)
       <form action="{{ route('flight.selectReturn') }}" method="GET">
       <input type="hidden" name="return_flight_id" value="{{ $flight->id }}">
+            <input type="hidden" name="departure_flight_id" value="{{ $departureFlightId }}">
+       @php
+dd($departureFlightId);
+@endphp
             <input type="hidden" name="trip_type" value="{{ $tripType }}">
             <input type="hidden" name="departure_date" value="{{ $returnDate }}">
             <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">

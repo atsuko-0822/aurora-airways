@@ -77,7 +77,7 @@ class FlightController extends Controller
         }
 
         $flights = $query->get();
-
+$departureFlightId = $request->input('departure_flight_id');
         // return view('flight_departure', compact('flights'));
 
         return view('flight_departure', [
@@ -86,6 +86,7 @@ class FlightController extends Controller
         'hideSearchForm' => true,
         'tripType' => 'round_trip',
          'returnDate' => $request->query('return_date'),
+        'departureFlightId' => $departureFlightId,
     ]);
     }
 
@@ -94,7 +95,7 @@ class FlightController extends Controller
     $departureFlightId = $request->query('departure_flight_id');
 
     $departureFlight = Flight::find($departureFlightId);
-
+    // dd($departureFlight);
 $returnFlights = Flight::where('from',$departureFlight->to)
         ->where('to', $departureFlight->from)
         ->whereDate('departure_date','>',$departureFlight->departure_date)
@@ -103,7 +104,7 @@ $returnFlights = Flight::where('from',$departureFlight->to)
 
     return view('flight_return', [
         'flights' => $returnFlights,
-        'departingFlight' => $departureFlight,
+        'departingFlight' => $departureFlight->id,
         'tripType' => 'round_trip',
          'returnDate' => $request->query('return_date'),
     'hideSearchForm' => true, // ← これを追加
