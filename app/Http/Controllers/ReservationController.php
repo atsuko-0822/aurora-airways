@@ -113,25 +113,25 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
         $reservation->trip_type = 'round_trip';
         $reservation->save();
 
+       $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
         $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
-        $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
-            session()->forget('total_price');
-        $totalPrice = $returnFlight->price + $departureFlight->price;
+          session()->forget('total_price');
+        $totalPrice = $departureFlight->price + $returnFlight->price;
         session()->put('total_price', $totalPrice);
             // dd($totalPrice);
         // Stripe決済ページにリダイレクト（価格をGETパラメータで渡す）
-        return redirect()->route('checkout',['total_price'->$totalPrice]);
-
-    } catch (\Exception $e) {
-        \Log::error('Error in reserveReturn: ' . $e->getMessage(), ['exception' => $e]);
-        return redirect()->route('user.dashboard')->with('error', 'Something went wrong during reservation.');
-    }
+        return redirect()->route('checkout');
+        } catch (Exception $e) {
+            Log::error('Error saving into the DB: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+        }
     }
 
    public function showCancelOrChangePage()
 {
     $user = Auth::user();
-
+//  dd($user);
     $reservation = Reservation::where('user_id', $user->id)
         ->with(['departureFlight', 'returnFlight'])
         ->latest()
