@@ -78,12 +78,20 @@ class FlightController extends Controller
 
         $flights = $query->get();
 
-        return view('flight_departure', compact('flights'));
+        // return view('flight_departure', compact('flights'));
+
+        return view('flight_departure', [
+        'flights' => $flights,
+        'isFromSearch' => true,
+        'hideSearchForm' => true,
+        'tripType' => 'round_trip',
+         'returnDate' => $request->query('return_date'),
+    ]);
     }
 
     public function showReturnFlights(Request $request)
 {
-    $departureFlightId = $request->query('id');
+    $departureFlightId = $request->query('departure_flight_id');
 
     $departureFlight = Flight::find($departureFlightId);
 
@@ -94,11 +102,14 @@ $returnFlights = Flight::where('from',$departureFlight->to)
         ->get();
 
     return view('flight_return', [
+        'flights' => $returnFlights,
         'departingFlight' => $departureFlight,
-        'returnFlights' => $returnFlights,
-    ]);
+        'tripType' => 'round_trip',
+         'returnDate' => $request->query('return_date'),
+    'hideSearchForm' => true, // ← これを追加
+    'isFromSearch' => true,   // ← 検索から来たことがわかるように
+]);
 }
-
 public function selectDepartureFlight(Request $request, $departureFlightId) //往復予約を保存
 {
 //     dd($departureFlightId);
@@ -258,6 +269,7 @@ public function changeDeparting(Request $request)
         'flights' => $flights,
         'returnFlightId' => $request->return_flight_id,
         'reservationId' => $request->reservation_id,
+        'isFromSearch' => false, // 🔑予約変更用途
     ]);
 }
 
