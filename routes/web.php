@@ -114,6 +114,7 @@ Route::get('/cancel_change', [ReservationController::class, 'showCancelOrChangeP
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
 Route::post('/reserve/departure/{departureFlightId}', [ReservationController::class, 'reserveDeparture'])->name('reserve.departure');
 Route::post('/reserve/return/{returnFlightId}', [ReservationController::class, 'reserveReturn'])->name('reserve.return');
+Route::post('/reserve/return/create/{returnFlightId}', [ReservationController::class, 'createReturnReservation'])->name('reserve.return.create');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

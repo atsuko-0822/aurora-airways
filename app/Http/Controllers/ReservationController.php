@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Flight;
 use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -108,18 +109,18 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
             'departure_flight_id' => $departureFlightId,
         ]);
 
-        $departureFlight = \App\Models\Flight::find($departureFlightId);
+        $departureFlight = Flight::find($departureFlightId);
         if (!$departureFlight) {
             Log::error('🚨 departureFlight not found in DB', [
                 'departure_flight_id' => $departureFlightId
             ]);
             return redirect()->back()->withErrors('出発便の情報が見つかりませんでした');
         }
-
+        Log::info('departure Flight was found');
         $reservation = Reservation::where('id', $reservationId)
                                   ->where('user_id', $user->id)
                                   ->firstOrFail();
-
+        Log::info('Reservation was found');
         $reservation->return_flight_id = $returnFlightId;
         $reservation->departure_flight_id = $departureFlightId;
         $reservation->trip_type = 'round_trip';
@@ -133,9 +134,9 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
         // 必要なデータをセッションに保存
         session()->put('total_price', $totalPrice);
         session()->put('reservation_id', $reservationId);
-
+        Log::info('Stripe Execute');
         // StripeリダイレクトコントローラーへPOST
-        return redirect()->route('stripe.payment');
+        return redirect()->route('checkout');
 
     } catch (Exception $e) {
         Log::error('Error in reserveReturn: ' . $e->getMessage(), [
@@ -160,6 +161,48 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
 
     return view('cancel_change', compact('reservation'));
 }
+
+public function createReturnReservation(Request $request, $returnFlightId)
+{
+    Log::info('🛬 createReturnReservation hit!', [
+        'method' => $request->method(),
+        'url' => $request->fullUrl(),
+        'returnFlightId' => $returnFlightId,
+        'request_data' => $request->all()
+    ]);
+
+    try {
+        $user = Auth::user();
+        $departureFlightId = $request->input('departure_flight_id');
+
+        $departureFlight = Flight::findOrFail($departureFlightId);
+        $returnFlight = Flight::findOrFail($returnFlightId);
+
+        $reservation = new Reservation();
+        $reservation->user_id = $user->id;
+        $reservation->departure_flight_id = $departureFlightId;
+        $reservation->return_flight_id = $returnFlightId;
+        $reservation->trip_type = 'round_trip';
+        $reservation->save();
+
+        Log::info('✅ New Reservation created', ['reservation_id' => $reservation->id]);
+
+        $totalPrice = $departureFlight->price + $returnFlight->price;
+
+        session()->forget(['total_price', 'reservation_id']);
+        session()->put('total_price', $totalPrice);
+        session()->put('reservation_id', $reservation->id);
+
+        return redirect()->route('checkout');
+
+    } catch (Exception $e) {
+        Log::error('❌ Error in createReturnReservation: ' . $e->getMessage(), [
+            'exception' => $e
+        ]);
+        return redirect()->back()->withErrors('フライトの予約中にエラーが発生しました');
+    }
+}
+
 }
 
 

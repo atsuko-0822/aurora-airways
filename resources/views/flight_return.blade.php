@@ -79,10 +79,14 @@
             {{-- @foreach($flights as $flight)
             <form action="{{ route('reserve.return', ['returnFlightId' => $flight->id]) }}" method="POST" class="mb-3">
                 @csrf
-                 <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
-                 <input type="hidden" name="departure_flight_id" id="departure_flight_id"value="{{ $departureFlightId }}">
+                <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
+                <input type="hidden" name="departure_flight_id" id="departure_flight_id" value="{{ $departureFlightId }}">
                 <input type="hidden" name="trip_type" value="round_trip">
-                 <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+
+                @php
+                    dd($departureFlightId);
+                @endphp
 
                 <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
                     <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
@@ -94,41 +98,39 @@
             </form>
             @endforeach --}}
             @foreach($flights as $flight)
-    @if(isset($isFromSearch) && $isFromSearch)
-      <form action="{{ route('flight.selectReturn') }}" method="GET">
-      <input type="hidden" name="return_flight_id" value="{{ $flight->id }}">
-            <input type="hidden" name="departure_flight_id" value="{{ $departureFlightId }}">
-       @php
-dd($departureFlightId);
-@endphp
-            <input type="hidden" name="trip_type" value="{{ $tripType }}">
-            <input type="hidden" name="departure_date" value="{{ $returnDate }}">
-            <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
-                <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
-                    <div>{{ $flight->from }} → {{ $flight->to }}</div>
-                    <div>{{ $flight->return_date }} {{ \Carbon\Carbon::parse($flight->return_time)->format('g:i A') }}</div>
-                    <div>${{ number_format($flight->price) }}</div>
-                </div>
-            </button>
-        </form>
-    @else
-        {{-- 予約変更用のPOSTボタンつき --}}
-        <form action="{{ route('reserve.return', ['returnFlightId' => $flight->id]) }}" method="POST">
-            @csrf
-             <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
-            <input type="hidden" name="departure_flight_id" value="{{ $departureFlightId }}">
-            <input type="hidden" name="trip_type" value="round_trip">
-            <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
-            <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
-                <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
-                    <div>{{ $flight->from }} → {{ $flight->to }}</div>
-                    <div>{{ $flight->return_date }} {{ \Carbon\Carbon::parse($flight->return_time)->format('g:i A') }}</div>
-                    <div>${{ number_format($flight->price) }}</div>
-                </div>
-            </button>
-        </form>
-    @endif
-@endforeach
+                @if(isset($isFromSearch) && $isFromSearch)
+                <form action="{{ route('reserve.return.create', ['returnFlightId' => $flight->id]) }}" method="POST">
+                    @csrf
+                        <input type="hidden" name="return_flight_id" value="{{ $flight->id }}">
+                        <input type="hidden" name="departure_flight_id" id="departure_flight_id"value="{{ $departureFlightId }}">
+                        <input type="hidden" name="trip_type" value="{{ $tripType }}">
+                        <input type="hidden" name="departure_date" value="{{ $returnDate }}">
+                        <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
+                            <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
+                                <div>{{ $flight->from }} → {{ $flight->to }}</div>
+                                <div>{{ $flight->return_date }} {{ \Carbon\Carbon::parse($flight->return_time)->format('g:i A') }}</div>
+                                <div>${{ number_format($flight->price) }}</div>
+                            </div>
+                        </button>
+                    </form>
+                @else
+                    {{-- 予約変更用のPOSTボタンつき --}}
+                    <form action="{{ route('reserve.return', ['returnFlightId' => $flight->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
+                        <input type="hidden" name="departure_flight_id" id="departure_flight_id" value="{{ $departureFlightId }}">
+                        <input type="hidden" name="trip_type" value="round_trip">
+                        <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+                        <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
+                            <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
+                                <div>{{ $flight->from }} → {{ $flight->to }}</div>
+                                <div>{{ $flight->return_date }} {{ \Carbon\Carbon::parse($flight->return_time)->format('g:i A') }}</div>
+                                <div>${{ number_format($flight->price) }}</div>
+                            </div>
+                        </button>
+                    </form>
+                @endif
+            @endforeach
         </div>
     @else
         <p class="text-center mt-4">No flights found.</p>

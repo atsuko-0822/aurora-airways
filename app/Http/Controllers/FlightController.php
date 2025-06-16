@@ -77,7 +77,7 @@ class FlightController extends Controller
         }
 
         $flights = $query->get();
-$departureFlightId = $request->input('departure_flight_id');
+        $departureFlightId = $request->input('departure_flight_id');
         // return view('flight_departure', compact('flights'));
 
         return view('flight_departure', [
@@ -85,26 +85,33 @@ $departureFlightId = $request->input('departure_flight_id');
         'isFromSearch' => true,
         'hideSearchForm' => true,
         'tripType' => 'round_trip',
-         'returnDate' => $request->query('return_date'),
+        'returnDate' => $request->query('return_date'),
         'departureFlightId' => $departureFlightId,
     ]);
     }
 
     public function showReturnFlights(Request $request)
 {
-    $departureFlightId = $request->query('departure_flight_id');
-
+    $departureFlightId = $request->input('departure_flight_id');
+    // dd($departureFlightId);
     $departureFlight = Flight::find($departureFlightId);
     // dd($departureFlight);
-$returnFlights = Flight::where('from',$departureFlight->to)
-        ->where('to', $departureFlight->from)
+
+    // dd($departureFlight->from, $departureFlight->to, $departureFlight->departure_date);
+
+    $departureFlightTo = $departureFlight->to;
+    $departureFlightFrom = $departureFlight->from;
+    $departureFlightDate = $departureFlight->date;
+
+    $returnFlights = Flight::where('from',$departureFlightTo)
+        ->where('to', $departureFlightFrom)
         ->whereDate('departure_date','>',$departureFlight->departure_date)
         ->orderBy('departure_date')
         ->get();
 
     return view('flight_return', [
         'flights' => $returnFlights,
-        'departingFlight' => $departureFlight->id,
+        'departureFlightId' => $departureFlightId,
         'tripType' => 'round_trip',
          'returnDate' => $request->query('return_date'),
     'hideSearchForm' => true, // ← これを追加
@@ -322,6 +329,7 @@ public function changeSearchDeparting(Request $request)
     return view('flight_departure', [
         'flights' => $flights,
         'returnFlightId' => $request->input('return_flight_id'),
+        'departureFlightId' => $request->input('departure_flight_id'),
         'reservationId' => $request->input('reservation_id'),
     ]);
 }

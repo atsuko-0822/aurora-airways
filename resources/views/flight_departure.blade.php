@@ -101,7 +101,7 @@
             {{-- フライト一覧の各行を条件分け --}}
 @foreach($flights as $flight)
     @if(isset($isFromSearch) && $isFromSearch)
-      <form action="{{ route('flight.selectReturn') }}" method="GET">
+      <form action="{{ route('flight.selectReturn', ['departureFlightId' => $flight->id]) }}" method="GET">
       <input type="hidden" name="departure_flight_id" value="{{ $flight->id }}">
             <input type="hidden" name="trip_type" value="{{ $tripType }}">
             <input type="hidden" name="return_date" value="{{ $returnDate }}">
