@@ -75,6 +75,8 @@
             <div class="me-3">{{ $flight->from }} - {{ $flight->to }}</div>
             <div class="me-3">{{ $flight->departure_date }}</div>
             <div>${{ number_format($flight->price) }}</div>
+             {{-- <input type="hidden" name="departure_flight_id" value="{{ $flight->id }}"> --}}
+
         </div>
     @endforeach
 

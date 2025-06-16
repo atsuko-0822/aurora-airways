@@ -9,6 +9,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminFlightController;
+use App\Http\Controllers\StripePaymentController;
 
 
 Route::get('/', function () {
@@ -67,8 +68,12 @@ Route::get('/selected_flight', function () {
     return view('selected_flight');
 });
 
+// Route::get('/payment', function () {
+//     return view('payment');
+// });
+
 Route::get('/payment', function () {
-    return view('payment');
+    return view('stripe.payment');
 });
 
 
@@ -109,6 +114,7 @@ Route::get('/cancel_change', [ReservationController::class, 'showCancelOrChangeP
 Route::post('/reserve/roundtrip/{returnFlightId}', [ReservationController::class, 'reserveRoundTrip'])->name('reserve.round.trip');
 Route::post('/reserve/departure/{departureFlightId}', [ReservationController::class, 'reserveDeparture'])->name('reserve.departure');
 Route::post('/reserve/return/{returnFlightId}', [ReservationController::class, 'reserveReturn'])->name('reserve.return');
+Route::post('/reserve/return/create/{returnFlightId}', [ReservationController::class, 'createReturnReservation'])->name('reserve.return.create');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -146,3 +152,15 @@ Route::get('/auth/google/callback', [UserController::class, 'handleGoogleCallbac
 
 Route::get('/auth/facebook', [UserController::class, 'redirectToFacebook'])->name('facebook.login');
 Route::get('/auth/facebook/callback', [UserController::class, 'handleFacebookCallback']);
+
+// Stripe payment routes
+Route::get('/checkout', [StripePaymentController::class, 'redirectToCheckout'])->name('checkout');
+Route::get('/success', function () {
+    return 'payment success！';
+})->name('checkout.success');
+
+Route::get('/cancel', function () {
+    return 'payment cancelled！';
+})->name('checkout.cancel');
+
+
