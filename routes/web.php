@@ -12,9 +12,7 @@ use App\Http\Controllers\AdminFlightController;
 use App\Http\Controllers\StripePaymentController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/test', function () {
     return view('test');
@@ -26,7 +24,7 @@ Route::get('/flight_search', function () {
 })->name('flight_search');
 
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 
