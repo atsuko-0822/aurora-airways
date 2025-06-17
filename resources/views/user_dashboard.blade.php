@@ -9,7 +9,7 @@
         <div class="col-md-5">
             <div class="rounded p-3 mb-3 d-flex align-items-center">
                 <h2 class="fw-bold mt-3 me-4">Hello, {{ Auth::user()->full_name }}!</h2>
-                 <p class="mt-4 user-header">0000-0000</p>
+                 <p class="mt-4 user-header">{{ Auth::user()->user_number }}</p>
             </div>
             <div class="bg-white rounded shadow p-4 pb-5 mb-4 personal-info-container">
                  <div class="d-flex align-items-center mb-3">
