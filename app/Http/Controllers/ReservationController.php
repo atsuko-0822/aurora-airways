@@ -40,7 +40,13 @@ class ReservationController extends Controller
         $reservation->return_flight_id = $returnFlightId;
         $reservation->trip_type = 'round_trip';
         $reservation->save();
+ if ($reservation->trip_type === 'round_trip') {
+        $user->points += 100;
+    } else {
+        $user->points += 50;
+    }
 
+    $user->save();
         // dd($reservation);
         return redirect()->route('checkout');
         } catch (Exception $e) {
@@ -76,6 +82,13 @@ class ReservationController extends Controller
         $reservation->trip_type = 'round_trip';
         // dd($reservation);
         $reservation->save();
+         if ($reservation->trip_type === 'round_trip') {
+        $user->points += 100;
+    } else {
+        $user->points += 50;
+    }
+
+    $user->save();
 $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
         $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
           session()->forget('total_price');
@@ -125,7 +138,13 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
         $reservation->departure_flight_id = $departureFlightId;
         $reservation->trip_type = 'round_trip';
         $reservation->save();
+ if ($reservation->trip_type === 'round_trip') {
+        $user->points += 100;
+    } else {
+        $user->points += 50;
+    }
 
+    $user->save();
         $departureFlight = \App\Models\Flight::findOrFail($departureFlightId);
         $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
 
@@ -152,6 +171,7 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
 //  dd($user);
     $reservation = Reservation::where('user_id', $user->id)
         ->with(['departureFlight', 'returnFlight'])
+        ->where('status', 'active')
         ->latest()
         ->first();
     // dd($reservation);
@@ -185,6 +205,14 @@ public function createReturnReservation(Request $request, $returnFlightId)
         $reservation->trip_type = 'round_trip';
         $reservation->save();
 
+
+    if ($reservation->trip_type === 'round_trip') {
+        $user->points += 100;
+    } else {
+        $user->points += 50;
+    }
+
+    $user->save();
         Log::info('✅ New Reservation created', ['reservation_id' => $reservation->id]);
 
         $totalPrice = $departureFlight->price + $returnFlight->price;
@@ -202,6 +230,7 @@ public function createReturnReservation(Request $request, $returnFlightId)
         return redirect()->back()->withErrors('フライトの予約中にエラーが発生しました');
     }
 }
+
 
 }
 

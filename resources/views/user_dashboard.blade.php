@@ -60,8 +60,8 @@
         <div class="col-md-7">
             <div class="bg-white rounded p-2 pt-3 pb-3 mb-3 mt-3">
                 <div class="d-flex align-items-center justify-content-around">
-                <div class="me-5">Your Aurora points: <strong>0000pt</strong></div>
-                <a href="#" class="text-reset text-decoration-none">Do you want to use points ?</a>
+                <div class="me-5">Your Aurora points: <strong>{{ Auth::user()->points }}pt</strong></div>
+                <a href="{{ route('rewards') }}" class="text-reset text-decoration-none">Do you want to use points ?</a>
             </div>
         </div>
             <div class="bg-white rounded shadow p-4 mb-4">
@@ -117,14 +117,15 @@
                         @else
                         <p>復路便：なし（片道）</p>
                     @endif
+                    <button class="btn btn-sm me-2 receipt-btn"><div class="d-flex align-items-center">
+                            <i class="fa-solid fa-receipt me-1"></i>receipt</div></button>
+                        <a href="{{ route('cancel_change') }}" class="btn btn-outline-danger btn-sm cancel-btn">Cancel or change your flight?</a>
                 @else
                     <p>予約がありません。</p>
                 @endif
 
-                        <button class="btn btn-sm me-2 receipt-btn"><div class="d-flex align-items-center">
-                            <i class="fa-solid fa-receipt me-1"></i>receipt</div></button>
-                        <a href="{{ route('cancel_change') }}" class="btn btn-outline-danger btn-sm cancel-btn">Cancel or change your flight?</a>
-                    </p>
+
+                    {{-- </p> --}}
                     </div>
                 </div>
             </div>

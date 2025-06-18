@@ -52,7 +52,7 @@ Route::get('/FAQ', function () {
 
 Route::get('/rewards', function () {
     return view('rewards');
-});
+})->name('rewards');
 
 Route::get('/flight_comparison', function () {
     return view('flight_comparison');
