@@ -219,13 +219,12 @@ public function store(Request $request)
 
 public function cancel($id)
 {
-    // 該当の予約を取得
     $reservation = Reservation::findOrFail($id);
 
-    // キャンセル処理（例えばデータを削除）
-    $reservation->delete();
+    // フラグを立てるだけに変更
+     $reservation->status = '1';
+    $reservation->save();
 
-    // ダッシュボードなどにリダイレクト
     return redirect()->route('user.dashboard')->with('success', 'フライトをキャンセルしました。');
 }
 

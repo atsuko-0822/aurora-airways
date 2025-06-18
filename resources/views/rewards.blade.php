@@ -7,14 +7,14 @@
 <div class="row rewards-title">
     <div class="col-md-5">
         <div class="rounded p-3 mb-3 d-flex align-items-center name">
-            <h2 class="fw-bold mt-3 me-4">Hello, Name !</h2>
-            <p class="mt-4 user-header">0000-0000</p>
+            <h2 class="fw-bold mt-3 me-4">Hello, {{ Auth::user()->full_name }}!</h2>
+            <p class="mt-4 user-header">{{ Auth::user()->user_number }}</p>
         </div>
     </div>
     <div class="col-md-5">
         <div class="bg-white rounded p-2 pt-3 pb-3 mt-4 points">
             <div class="d-flex align-items-center justify-content-around">
-                <div class="mx-3">Your Aurora points: <strong>0000pt</strong></div>
+                <div class="mx-3">Your Aurora points: <strong>{{ Auth::user()->points }}pt</strong></div>
             </div>
         </div>
     </div>
