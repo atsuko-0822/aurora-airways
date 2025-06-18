@@ -68,7 +68,7 @@
                 <h2 class="mb-3">Your next trip is...</h2>
                 <div class="flight-info-oval-reservation mb-3">
                     <div class="d-flex align-items-center justify-content-between">
-                    <p class="pt-3">Reservation number: QN7853</p>
+                    <p class="pt-3">Reservation number: {{  $nextReservation->reservation_number ?? 'N/A' }}</p>
                     <p class="pt-3">Total 1 person</p>
                     <button type="submit" class="btn d-block px-1 py-1rounded-pill fw-bold eticket-btn">send e-ticket</button>
                     </div>
@@ -115,13 +115,13 @@
                         <p class="mb-0 me-3">Total: ${{ number_format($nextReservation->departureFlight->price, 0) }}</p>
                     @endif
                         @else
-                        <p>復路便：なし（片道）</p>
+                        <p>Returning Flight：nothing</p>
                     @endif
                     <button class="btn btn-sm me-2 receipt-btn"><div class="d-flex align-items-center">
                             <i class="fa-solid fa-receipt me-1"></i>receipt</div></button>
                         <a href="{{ route('cancel_change') }}" class="btn btn-outline-danger btn-sm cancel-btn">Cancel or change your flight?</a>
                 @else
-                    <p>予約がありません。</p>
+                    <p>No reservation</p>
                 @endif
 
 
