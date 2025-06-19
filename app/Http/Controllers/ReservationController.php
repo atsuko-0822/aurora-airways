@@ -10,6 +10,7 @@ use App\Models\Flight;
 use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Illuminate\Support\Str;
 
 class ReservationController extends Controller
 {
@@ -203,6 +204,8 @@ public function createReturnReservation(Request $request, $returnFlightId)
         $reservation->departure_flight_id = $departureFlightId;
         $reservation->return_flight_id = $returnFlightId;
         $reservation->trip_type = 'round_trip';
+        $randomString = Str::random(6);
+        $reservation->reservation_number = strtoupper($randomString);
         $reservation->save();
 
 
@@ -231,6 +234,24 @@ public function createReturnReservation(Request $request, $returnFlightId)
     }
 }
 
+public function store(Request $request)
+{
+    $reservation = new Reservation();
+    $reservation->user_id = auth()->id();
+    $reservation->trip_type = $request->trip_type;
+    $reservation->flight_id = $request->flight_id;
+
+    $randomString = Str::random(6);
+    $reservation->reservation_number = strtoupper($randomString);
+    $reservation->save();
+
+
+    $user = auth()->user();
+    $user->points += $reservation->trip_type === 'round-trip' ? 100 : 50;
+    $user->save();
+
+    return redirect()->route('user_dashboard')->with('success', 'Reservation complete. Points added!');
+}
 
 }
 
