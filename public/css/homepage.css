@@ -5,6 +5,7 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 } */
 
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Nunito', sans-serif;
   }
@@ -85,26 +86,26 @@ section {
 
 footer {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    background-color: #fcfbf9;
     color: #0F384A !important; /* footer 全体の文字色 */
 }
 
 footer .subfooter {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to bottom, #a1d6e2, #85cdc2, #aed6d7, #d0d5b9, #d6d5b4, #f2d59c, #f3ce9d, #f7b5a1);
+    background-color: #fcfbf9;
     padding-left: 0 !important;
     padding-right: 0 !important;
     display: flex; /* Flexbox を有効にする */
     justify-content: flex-start !important; /* 左寄せにする */
-    margin-left: -12px !important; /* 親要素の左パディングを打ち消す */
-    margin-right: -12px !important; /* 親要素の右パディングを打ち消す */
+    /* margin-left: -12px !important; 親要素の左パディングを打ち消す */
+    /* margin-right: -12px !important; 親要素の右パディングを打ち消す */
 }
 
 footer .subfooter p {
     text-align: left !important;
     margin-right: 1em; /* 必要に応じて右側の余白を追加 */
     color: #0F384A !important; /* subfooter 内 p 要素の文字色 */
-    padding-left: 100px !important; /* 左側のパディング */
+    padding-left: 120px !important; /* 左側のパディング */
 }
 
 footer .subfooter p:last-child {
@@ -219,19 +220,17 @@ footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの�
 
 /* ... 他の CSS ... */
 
-.hero .position-absolute {
-    top: 10%; /* top の値を 50% から 40% に変更 */
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
 /* ... 他の CSS ... */
 .footer-container{
-   margin-left: 80px;
+   /* margin-left: 80px; */
+   padding-left: 120px;
 }
 
 .h1-btn{
     color: white;
+    font-size: 2em;
+   padding-top: 0;
 }
 
 #app {
@@ -243,3 +242,16 @@ footer .d-flex.flex-column.flex-md-row.flex-wrap.gap-3 > a { /* フッターの�
 main {
     flex: 1;
 }
+
+.bg-image{
+    opacity: 0.5;
+}
+
+.hero-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -150%);
+    text-align: center;
+}
+
