@@ -10,7 +10,7 @@
     <div class="position-absolute top-0 start-0 p-4 name-container">
         <div class="rounded p-3 d-flex align-items-center">
             <h2 class="fw-bold me-4">Hello, {{ Auth::user()->full_name }}!</h2>
-            <p class="user-header">0000-0000</p>
+            <p class="user-header pt-2">{{ Auth::user()->user_number }}</p>
         </div>
     </div>
 
