@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Flight;
+use Illuminate\Support\Facades\Log;
 
 class AdminFlightController extends Controller
 {
@@ -70,24 +71,40 @@ public function edit($id)
     return view('edit_flight', compact('flight'));
 }
 
-// // 編集内容を保存
-// public function update(Request $request, $id)
-// {
-//     $flight = Flight::findOrFail($id);
+// 編集内容を保存
+public function update(Request $request, $id)
+{
+    try{
+    Log::info("message: AdminFlightController@update hit!", [
+        'method' => $request->method(),
+        'url' => $request->fullUrl(),
+        'flight_id' => $id,
+        'request_data' => $request->all()
+    ]);
 
-//     // バリデーション
-//     $request->validate([
-//         'flight_number' => 'required|string|max:255',
-//         'departure' => 'required|string|max:255',
-//         'arrival' => 'required|string|max:255',
-//         'departure_time' => 'required|date',
-//         'arrival_time' => 'required|date',
-//     ]);
+    $flight = Flight::findOrFail($id);
 
-//     // 更新処理
-//     $flight->update($request->all());
+    // バリデーション
+    $request->validate([
+        'from' => 'required|string|max:255',
+        'to' => 'required|string|max:255',
+        'departure_date' => 'required|date',
+        'trip_type' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+        'departure_time' => 'required',
+        'arrival_time' => 'required',
+    ]);
 
-//     return redirect()->route('flights.index')->with('success', 'Flight updated successfully');
-// }
+    // 更新処理
+    $flight->update($request->all());
+
+    return redirect()->route('admin.dashboard')->with('success', 'Flight updated successfully');
+    } catch (Exception $e) {
+        Log::error('Error in update: ' . $e->getMessage(), [
+            'exception' => $e
+        ]);
+        return redirect()->back()->withErrors('フライトの予約中にエラーが発生しました');
+    }
+}
 
 }

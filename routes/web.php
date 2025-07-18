@@ -139,7 +139,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/manage_flight', [AdminFlightController::class, 'index'])->name('admin.flights.index');
     Route::get('/manage_flight/create', [FlightController::class, 'create'])->name('admin.flights.create');
     Route::post('/manage_flight', [FlightController::class, 'store'])->name('admin.flights.store');
-    Route::put('/manage_flight/{id}', [FlightController::class, 'update'])->name('admin.flights.update');
+    Route::post('/manage_flight/{id}', [AdminFlightController::class, 'update'])->name('admin.flights.update');
     Route::patch('/manage_flight/{id}/toggle', [FlightController::class, 'toggleVisibility'])->name('admin.flights.toggleVisibility');
     Route::get('/flights/{id}/edit', [AdminFlightController::class, 'edit'])->name('flights.edit');
 });
