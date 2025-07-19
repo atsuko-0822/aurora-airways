@@ -4,7 +4,7 @@ The name Aurora was inspired by the breathtaking beauty of natural phenomena lik
 I aimed to reflect this colorful and uplifting mood in the design and user experience of the site.
 
 ## 📹Demo screen recording
-<video src="https://github.com/atsuko-0822/aurora-airways/raw/refs/heads/main/demo.mp4" autoplay loop muted playsinline width="600"></video>
+<video src="https://github.com/user-attachments/assets/eba383b4-d2ef-4b70-878f-f13b859268cf" autoplay loop muted playsinline width="600"></video>
 
 ## 💡Features
 - Flight Search & Booking – Search for available flights and make one-way or round-trip reservations.
