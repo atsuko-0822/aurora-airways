@@ -4,6 +4,7 @@ The name Aurora was inspired by the breathtaking beauty of natural phenomena lik
 I aimed to reflect this colorful and uplifting mood in the design and user experience of the site.
 
 ## 📹Demo screen recording
+<video src="demo.mp4" autoplay loop muted playsinline width="600"></video>
 
 ## 💡Features
 - Flight Search & Booking – Search for available flights and make one-way or round-trip reservations.
