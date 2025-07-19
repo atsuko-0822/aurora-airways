@@ -17,11 +17,11 @@
         @csrf
 
         <div class="mb-3">
-          <input type="email" class="form-control" id="email" name="email" required placeholder="Email adress" />
+          <input type="email" class="form-control" id="email" name="email" required placeholder="Email adress" autocomplete="off">
         </div>
 
         <div class="mb-3">
-          <input type="password" class="form-control" id="password" name="password" required placeholder="Password"/>
+          <input type="password" class="form-control" id="password" name="password" required placeholder="Password" autocomplete="off">
         </div>
 
         <button type="submit" class="btn d-block mx-auto px-4 py-2 rounded-pill fw-bold login-btn">Login</button>
