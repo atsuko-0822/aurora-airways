@@ -1,12 +1,12 @@
-# ✈️Aurora Airways – Airline Ticket Booking App
+# ✈️ Aurora Airways – Airline Ticket Booking App
 **Aurora Airways** is a fictional airline ticket booking website built as part of a team project during a full-time web development bootcamp. The goal was to create a responsive, user-friendly application where users can search, book, and manage flight reservations with ease. As someone who loves traveling, I was especially interested in how airline booking platforms are structured and function.
 The name Aurora was inspired by the breathtaking beauty of natural phenomena like the northern lights—capturing the sense of excitement and wonder that comes with planning a trip to a dream destination.
 I aimed to reflect this colorful and uplifting mood in the design and user experience of the site.
 
-## 📹Demo screen recording
+## 📹 Demo screen recording
 <video src="https://github.com/user-attachments/assets/eba383b4-d2ef-4b70-878f-f13b859268cf" autoplay loop muted playsinline width="600"></video>
 
-## 💡Features
+## 💡 Features
 - Flight Search & Booking – Search for available flights and make one-way or round-trip reservations.
 
 - Flight Manage - Cancel or change flights.
@@ -21,7 +21,7 @@ I aimed to reflect this colorful and uplifting mood in the design and user exper
 
 - Admin Panel – Manage users and all bookings (for administrators).
 
-## ⚒️Technologies Used
+## ⚒️ Technologies Used
 - Frontend: HTML, CSS, Bootstrap, JavaScript
 
 - Backend: PHP, Laravel
