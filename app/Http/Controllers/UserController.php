@@ -15,24 +15,7 @@ class UserController extends Controller
 {
     public function login()
     {
-        // フォームのバリデーション
-        // print("test");
-        // echo("test");
-        // $credentials = $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required',
-        // ]);
 
-        // // 認証処理
-        // if (Auth::attempt($credentials)) {
-        //     // 認証成功後、user_dashboard にリダイレクト
-        //     return redirect()->route('user.dashboard');
-        // }
-
-        // 認証失敗時にエラーメッセージを表示
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ]);
         if (Auth::check()) {
             return redirect()->route('user.dashboard');
         }
@@ -81,12 +64,7 @@ public function dashboard() //ダッシュボードに予約を保存
                             ->where('status', 'active')
                               ->latest()
                               ->first();
-    // dd([
-    //     'auth_user_id' => $user_id,
-    //     'fetched_reservation_user_id' => $nextReservation?->user_id,
-    //     'reservation_id' => $nextReservation?->id,
-    //     'reservation' => $nextReservation,
-    // ]);
+
     return view('user_dashboard', compact('nextReservation'));
 }
 
@@ -101,12 +79,6 @@ public function dashboard() //ダッシュボードに予約を保存
 public function redirectToGoogle()
 {
      try{
-        // dd(Socialite::driver('google')->redirect()->getTargetUrl());
-        // dd(Socialite::driver('google')
-        //     ->redirectUrl(config('services.google.redirect'))
-        //     ->scopes(['email'])
-        //     ->redirect()
-        //     ->getTargetUrl());
 
     return Socialite::driver('google')->scopes(['email'])->redirect();
 } catch (Exception $e) {

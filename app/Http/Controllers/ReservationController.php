@@ -30,8 +30,6 @@ class ReservationController extends Controller
         $departureFlightId = $request->input('departure_flight_id');
         $reservationId = $request->input('reservation_id');
 
-        // デバッグで確認（問題があればここで止まる）
-        // dd($user, $departureFlightId, $returnFlightId);
 
         $reservation = Reservation::where('id', $reservationId)
                               ->where('user_id', $user->id)
@@ -48,7 +46,7 @@ class ReservationController extends Controller
     }
 
     $user->save();
-        // dd($reservation);
+
         return redirect()->route('checkout');
         } catch (Exception $e) {
             Log::error('Error saving into the DB: ' . $e->getMessage(), [
@@ -71,8 +69,6 @@ class ReservationController extends Controller
         $returnFlightId = $request->input('return_flight_id');
         $reservationId = $request->input('reservation_id');
 
-        // デバッグで確認（問題があればここで止まる）
-        // dd($user, $departureFlightId, $returnFlightId);
 
         $reservation = Reservation::where('id', $reservationId)
                               ->where('user_id', $user->id)
@@ -81,7 +77,7 @@ class ReservationController extends Controller
         $reservation->departure_flight_id = $departureFlightId;
         $reservation->return_flight_id = $returnFlightId;
         $reservation->trip_type = 'round_trip';
-        // dd($reservation);
+
         $reservation->save();
          if ($reservation->trip_type === 'round_trip') {
         $user->points += 100;
@@ -95,7 +91,7 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
           session()->forget('total_price');
         $totalPrice = $returnFlight->price + $departureFlight->price;
         session()->put('total_price', $totalPrice);
-            // dd($totalPrice);
+
         // Stripe決済ページにリダイレクト（価格をGETパラメータで渡す）
         return redirect()->route('checkout');
         } catch (Exception $e) {
@@ -175,7 +171,7 @@ $returnFlight = \App\Models\Flight::findOrFail($returnFlightId);
         ->where('status', 'active')
         ->latest()
         ->first();
-    // dd($reservation);
+
     if (!$reservation) {
         return redirect()->route('user.dashboard')->with('error', 'You do not have any reservations.');
     }

@@ -18,7 +18,6 @@
     <div class="p-4 bg-white rounded-4 shadow edit-container">
         <form method="POST" action="{{ route('profile.update') }}">
             @csrf
-            {{-- @method('PUT') --}}
 
             <div class="d-flex align-items-center mb-3">
                 <i class="fa-solid fa-user fa-lg mb-3 me-2"></i>

@@ -93,11 +93,8 @@ class FlightController extends Controller
     public function showReturnFlights(Request $request)
 {
     $departureFlightId = $request->input('departure_flight_id');
-    // dd($departureFlightId);
-    $departureFlight = Flight::find($departureFlightId);
-    // dd($departureFlight);
 
-    // dd($departureFlight->from, $departureFlight->to, $departureFlight->departure_date);
+    $departureFlight = Flight::find($departureFlightId);
 
     $departureFlightTo = $departureFlight->to;
     $departureFlightFrom = $departureFlight->from;
@@ -120,8 +117,7 @@ class FlightController extends Controller
 }
 public function selectDepartureFlight(Request $request, $departureFlightId) //往復予約を保存
 {
-//     dd($departureFlightId);
-// $id は出発便のIDです
+
  $user = Auth::user();
     $returnFlightId = $request->input('return_flight_id');
 

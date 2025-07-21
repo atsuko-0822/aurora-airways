@@ -9,7 +9,6 @@
 
     <form action="{{ route('admin.flights.update', $flight->id) }}" method="POST">
         @csrf
-        {{-- @method('PUT') --}}
 
         <!-- From -->
         <div class="form-group mb-2">

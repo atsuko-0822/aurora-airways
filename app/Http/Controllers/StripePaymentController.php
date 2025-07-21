@@ -9,9 +9,9 @@ class StripePaymentController extends Controller
 {
     public function redirectToCheckout(Request $request)
     {
-        // $totalPrice = $request->query('totalPrice'); // ← GETパラメータで取得
+
         $totalPrice = session('total_price');
-        // dd($totalPrice);
+
     if (!$totalPrice || !is_numeric($totalPrice)) {
         abort(400, 'Invalid totalPrice');
     }

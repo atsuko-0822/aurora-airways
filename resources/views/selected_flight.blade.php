@@ -13,10 +13,6 @@
     </div>
 
     <div class="bg-white rounded shadow p-4 mx-auto cancel-container">
-        {{-- <div class="d-flex align-items-center mb-3">
-            <h2 class="fw-bold mb-0">Selected reservation details</h2>
-        </div> --}}
-
 
         <div class="border rounded p-3">
             <div class="d-flex align-items-center mb-3 text-muted">
@@ -51,10 +47,6 @@
             </div>
         </div>
     <div class="bg-white rounded shadow p-4 mx-auto cancel-container  mt-4 mb-5">
-        {{-- <div class="d-flex align-items-center mb-3">
-            <h2 class="fw-bold mb-0">Total to be paid</h2>
-        </div> --}}
-
 
         <div class="border rounded p-4 text-center mt-4">
             <h2 class="mb-3 fw-bold">Total to be paid</h2>

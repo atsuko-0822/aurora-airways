@@ -6,7 +6,6 @@
 
 
  @php
-    // $flights = $flights ?? collect();
     $flights = $flights ?? collect();
     $reservationId = $reservationId ?? '';
     $returnFlightId = $returnFlightId ?? '';
@@ -80,23 +79,7 @@
 @if(request()->has('from') || request()->has('to') || request()->has('departure_date'))
     @if($flights->count() > 0)
         <div class="bg-white rounded shadow p-4 mt-4">
-            {{-- @foreach($flights as $flight)
-            <form action="{{ route('reserve.departure', ['departureFlightId' => $flight->id]) }}" method="POST" class="mb-3">
-                @csrf
-                 <input type="hidden" name="new_flight_id" value="{{ $flight->id }}">
-                 <input type="hidden" name="return_flight_id" id="return_flight_id"value="{{ $returnFlightId }}">
-                <input type="hidden" name="trip_type" value="round_trip">
-                 <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
 
-                <button type="submit" class="btn btn-link w-100 p-0 m-0 text-dark text-start">
-                    <div class="border-bottom py-3 d-flex justify-content-between align-items-center">
-                        <div>{{ $flight->from }} → {{ $flight->to }}</div>
-                        <div>{{ $flight->departure_date }} {{ \Carbon\Carbon::parse($flight->departure_time)->format('g:i A') }}</div>
-                        <div>${{ number_format($flight->price) }}</div>
-                    </div>
-                </button>
-            </form>
-            @endforeach --}}
 
             {{-- フライト一覧の各行を条件分け --}}
 @foreach($flights as $flight)
